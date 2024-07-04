@@ -1,0 +1,32 @@
+.search {
+	padding-top: 8px;
+	margin-bottom: 8px;
+}
+
+.search-input {
+	width: 100%;
+	padding: 12px 0;
+	background-color: transparent;
+	font-size: 14px;
+	line-height: 18px;
+	color: #575756;
+	background-image: url('../../assets/search.svg');
+	background-repeat: no-repeat;
+	background-size: 18px 18px;
+	background-position: 100% center;
+	border: 1px solid transparent;
+	border-bottom: 1px solid #575756;
+	border-radius: 0;
+	outline: 0;
+}
+.button {
+	padding: 4px;
+	display: flex;
+	align-items: center;
+	font-weight: 700;
+	background-color: white;
+	width: 140px;
+	height: 30px;
+	border: 1px solid black;
+	position: relative;
+}
