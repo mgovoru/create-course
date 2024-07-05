@@ -7,21 +7,23 @@
 	width: 100%;
 	padding: 12px 0;
 	background-color: transparent;
-	font-size: 14px;
+	font-size: 18px;
 	line-height: 18px;
-	color: #575756;
+	color: white;
 	background-image: url('../../assets/search.svg');
 	background-repeat: no-repeat;
-	background-size: 18px 18px;
+	background-size: 36px 36px;
 	background-position: 100% center;
 	border: 1px solid transparent;
-	border-bottom: 1px solid #575756;
+	border-bottom: 3px solid white;
 	border-radius: 0;
 	outline: 0;
+	margin-bottom: 8px;
 }
 .button {
 	padding: 4px;
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	font-weight: 700;
 	background-color: white;
