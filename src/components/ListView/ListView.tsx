@@ -19,7 +19,9 @@ export class ListView extends Component<PropsStr, State> {
 
   componentApi() {
     axios
-      .get(`https://swapi.dev/api/people/?search=${this.state.strSearch}`)
+      .get(
+        `https://swapi.dev/api/people/?page=1&&search=${this.state.strSearch}`
+      )
       .then((response) => {
         this.setState({ people: response.data.results, loading: false })
       })
