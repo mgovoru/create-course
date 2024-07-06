@@ -39,9 +39,15 @@ export class ListView extends Component<PropsStr, State> {
     }
 
     return (
-      <div>
+      <div  className="perspective">
         {people.map((person: Person, index: number) => (
-          <div key={index}>{person.name}</div>
+          <div key={index} className='lists'>
+            <span>{person.name}</span>
+            <span>{person.gender}</span>
+            <span>birth_year {person.birth_year}</span>
+            <span>hair_color {person.hair_color}</span>
+            <span>eye_color {person.eye_color}</span>
+          </div>
         ))}
       </div>
     )
