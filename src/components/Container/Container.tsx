@@ -27,8 +27,8 @@ export class Container extends Component<PropsBegin, State> {
         <SearchBar onButtonClick={this.handleSearch} />
         <ErrorBoundary>
           <ButtonError />
-          <div>
-            <h1>Characters</h1>
+          <div className="heroes">
+            <h1 className="title-hero">Characters</h1>
             <ListView str={this.state.strSearch} />
           </div>
         </ErrorBoundary>
