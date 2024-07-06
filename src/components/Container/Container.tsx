@@ -3,6 +3,7 @@ import { SearchBar } from '../SeachBar/SearchBar'
 import './Container.scss'
 import { ListView } from '../ListView/ListView'
 import { PropsBegin, State } from '../../types'
+import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary'
 
 export class Container extends Component<PropsBegin, State> {
   constructor(props: PropsBegin) {
@@ -20,15 +21,16 @@ export class Container extends Component<PropsBegin, State> {
     this.setState({ strSearch: str })
   }
   render() {
-    console.log(this.state.strSearch);
     return (
-      <div className="container">
-        <SearchBar onButtonClick={this.handleSearch} />
-        <div>
-          <h1>Characters</h1>
-          <ListView str={this.state.strSearch} />
+      <ErrorBoundary >
+        <div className="container">
+          <SearchBar onButtonClick={this.handleSearch} />
+          <div>
+            <h1>Characters</h1>
+            <ListView str={this.state.strSearch} />
+          </div>
         </div>
-      </div>
+      </ErrorBoundary>
     )
   }
 }

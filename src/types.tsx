@@ -1,3 +1,5 @@
+import { ReactNode } from "react"
+
 export interface Person {
   name: string
   height: string
@@ -23,9 +25,7 @@ export interface ApiResponse {
   previous: string | null
   results: Person[]
 }
-export interface Props {
-  state: State
-}
+
 
 export interface State {
   people: Person[]
@@ -37,8 +37,17 @@ export interface State {
 export interface ClickProps {
   onButtonClick: (str: string) => void
 }
+export interface Props {
+  state: State
+}
 export interface PropsStr {
   str: string
 }
 export interface PropsBegin {
+}
+export interface PropsError {
+  children: ReactNode
+}
+export interface StateError {
+  hasError: boolean
 }
