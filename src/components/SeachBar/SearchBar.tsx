@@ -14,7 +14,7 @@ export class SearchBar extends Component<ClickProps, State> {
     this.handleButtonClick = this.handleButtonClick.bind(this)
   }
   inputChange(event: ChangeEvent<HTMLInputElement>) {
-    localStorage.setItem('search', event.target.value)
+    localStorage.setItem('search', event.target.value.trim())
   }
   handleButtonClick() {
     this.props.onButtonClick(localStorage.getItem('search') as string)
