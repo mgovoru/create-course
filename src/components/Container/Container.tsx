@@ -4,6 +4,7 @@ import './Container.scss'
 import { ListView } from '../ListView/ListView'
 import { PropsBegin, State } from '../../types'
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary'
+import { ButtonError } from '../ErrorBoundary/ButtonError'
 
 export class Container extends Component<PropsBegin, State> {
   constructor(props: PropsBegin) {
@@ -22,15 +23,16 @@ export class Container extends Component<PropsBegin, State> {
   }
   render() {
     return (
-      <ErrorBoundary >
-        <div className="container">
-          <SearchBar onButtonClick={this.handleSearch} />
+      <div className="container">
+        <SearchBar onButtonClick={this.handleSearch} />
+        <ErrorBoundary>
+          <ButtonError />
           <div>
             <h1>Characters</h1>
             <ListView str={this.state.strSearch} />
           </div>
-        </div>
-      </ErrorBoundary>
+        </ErrorBoundary>
+      </div>
     )
   }
 }

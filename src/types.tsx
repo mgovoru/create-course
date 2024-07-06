@@ -51,3 +51,6 @@ export interface PropsError {
 export interface StateError {
   hasError: boolean
 }
+export interface StateThrowError {
+  throw: boolean
+}
