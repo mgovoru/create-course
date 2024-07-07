@@ -1,5 +1,5 @@
-import { Component } from "react"
-import { PropsBegin, StateThrowError } from "../../types"
+import { Component } from 'react'
+import { PropsBegin, StateThrowError } from '../../types'
 
 export class ButtonError extends Component<PropsBegin, StateThrowError> {
   constructor(props: PropsBegin) {

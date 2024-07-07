@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react'
 
 export interface Person {
   name: string
@@ -26,7 +26,6 @@ export interface ApiResponse {
   results: Person[]
 }
 
-
 export interface State {
   people: Person[]
   loading: boolean
@@ -43,8 +42,7 @@ export interface Props {
 export interface PropsStr {
   str: string
 }
-export interface PropsBegin {
-}
+export interface PropsBegin {}
 export interface PropsError {
   children: ReactNode
 }

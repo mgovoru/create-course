@@ -1,67 +1,67 @@
 .perspective {
-	perspective: 500px;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	overflow: hidden;
-	gap: 16px;
+  perspective: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  gap: 16px;
 
-	@media(max-width: 1180px) {
-		gap: 16px;
-	}
+  @media (max-width: 1180px) {
+    gap: 16px;
+  }
 }
 
 .lists-hero {
-	padding-top: 24px;
-	transform: rotateX(35deg) scaleY(2.5);
-	transform-origin: bottom;
-	font-size: calc(14px + 12 * ((100vw - 390px) / (1440 - 390)));
-	font-weight: 700;
-	color: darkorange;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
-	column-gap: 8px;
+  padding-top: 24px;
+  transform: rotateX(35deg) scaleY(2.5);
+  transform-origin: bottom;
+  font-size: calc(14px + 12 * ((100vw - 390px) / (1440 - 390)));
+  font-weight: 700;
+  color: darkorange;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 8px;
 
-	@media(max-width: 1180px) {
-		transform: rotateX(25deg) scaleY(2);
-	}
+  @media (max-width: 1180px) {
+    transform: rotateX(25deg) scaleY(2);
+  }
 
-	@media(max-width: 964px) {
-		transform: rotateX(25deg) scaleY(1.7);
-	}
+  @media (max-width: 964px) {
+    transform: rotateX(25deg) scaleY(1.7);
+  }
 
-	@media(max-width: 472px) {
-		font-size: 18px;
-		transform: rotateX(20deg) scaleY(1.5);
-	}
+  @media (max-width: 472px) {
+    font-size: 18px;
+    transform: rotateX(20deg) scaleY(1.5);
+  }
 }
 
 .lists span {
-	display: block;
-	margin-left: 8px;
+  display: block;
+  margin-left: 8px;
 }
 
 .loader-block {
-	margin: 0 auto;
-	width: 150px;
-	height: 150px;
-	background-image: url('../../assets/load.svg');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	z-index: 10;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  background-image: url('../../assets/load.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 10;
 }
 
 .error-block {
-	position: relative;
-	font-weight: 700;
-	margin: 0 auto;
-	padding: 20px;
-	max-width: 500px;
-	background-color: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  position: relative;
+  font-weight: 700;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 500px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }

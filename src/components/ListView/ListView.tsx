@@ -33,7 +33,7 @@ export class ListView extends Component<PropsStr, State> {
     const { people, loading, error } = this.state
 
     if (loading) {
-      return <div className='loader-block'></div>
+      return <div className="loader-block"></div>
     }
 
     if (error) {
@@ -41,9 +41,9 @@ export class ListView extends Component<PropsStr, State> {
     }
 
     return (
-      <div  className="perspective">
+      <div className="perspective">
         {people.map((person: Person, index: number) => (
-          <div key={index} className='lists-hero'>
+          <div key={index} className="lists-hero">
             <span>{person.name}</span>
             <span>{person.gender}</span>
             <span>birth_year {person.birth_year}</span>

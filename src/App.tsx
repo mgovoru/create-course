@@ -1,8 +1,7 @@
 import './App.scss'
 import { Container } from './components/Container/Container'
 
-function App() {
-
+function App() { 
   return (
     <>
       <div className="wrapper">

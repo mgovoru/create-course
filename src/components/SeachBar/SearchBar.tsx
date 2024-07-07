@@ -21,7 +21,7 @@ export class SearchBar extends Component<ClickProps, State> {
   }
   render() {
     return (
-      <form>
+      <form className="form">
         <div className="search">
           <input
             type="text"

@@ -1,6 +1,7 @@
-import { Component } from "react"
-import { PropsError, StateError } from "../../types"
-import { ButtonError } from "./ButtonError"
+import { Component } from 'react'
+import { PropsError, StateError } from '../../types'
+import { ButtonError } from './ButtonError'
+import './Error.scss'
 
 export class ErrorBoundary extends Component<PropsError, StateError> {
   constructor(props: PropsError) {
@@ -10,12 +11,20 @@ export class ErrorBoundary extends Component<PropsError, StateError> {
 
   static getDerivedStateFromError() {
     return { hasError: true }
-	}
-	
+  }
+
   render() {
     if (this.state.hasError) {
-      return (<><ButtonError /><h1>Something went wrong.</h1></>)
-		}
-		return this.props.children
-	}
+      return (
+        <>
+          <ButtonError />
+          <h1 className='error-title'>
+            Something went wrong. Star Wars heroes disappeared in an unknown
+            direction.
+          </h1>
+        </>
+      )
+    }
+    return this.props.children
+  }
 }
