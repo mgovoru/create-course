@@ -36,13 +36,10 @@ export interface State {
 export interface ClickProps {
   onButtonClick: (str: string) => void
 }
-export interface Props {
-  state: State
-}
+
 export interface PropsStr {
   str: string
 }
-export interface PropsBegin {}
 export interface PropsError {
   children: ReactNode
 }

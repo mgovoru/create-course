@@ -1,25 +1,21 @@
-import { Component } from 'react'
-import { PropsBegin, StateThrowError } from '../../types'
+import { useState } from 'react'
 
-export class ButtonError extends Component<PropsBegin, StateThrowError> {
-  constructor(props: PropsBegin) {
-    super(props)
-    this.state = { throw: false }
+export function ButtonError() {
+  const [state, setState] = useState({
+ throw: false })
+
+  function handleClick () {
+    setState((prevState) => ({
+      ...prevState, throw: true }))
   }
 
-  handleClick = () => {
-    this.setState({ throw: true })
-  }
-
-  render() {
-    if (this.state.throw) {
+    if (state.throw) {
       throw new Error('Error!')
     }
 
     return (
-      <button onClick={this.handleClick} className="button">
+      <button onClick={handleClick} className="button">
         Error!
       </button>
     )
-  }
 }
