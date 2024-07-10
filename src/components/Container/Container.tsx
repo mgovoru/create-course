@@ -23,16 +23,16 @@ export class Container extends Component<PropsBegin, State> {
   }
   render() {
     return (
-      <div className="container">
-        <SearchBar onButtonClick={this.handleSearch} />
-        <ErrorBoundary>
+      <ErrorBoundary>
+        <div className="container">
+          <SearchBar onButtonClick={this.handleSearch} />
           <ButtonError />
           <div className="heroes">
             <h1 className="title-hero">Characters</h1>
             <ListView str={this.state.strSearch} />
           </div>
-        </ErrorBoundary>
-      </div>
+        </div>
+      </ErrorBoundary>
     )
   }
 }

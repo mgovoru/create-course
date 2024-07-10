@@ -17,7 +17,6 @@ export class ErrorBoundary extends Component<PropsError, StateError> {
     if (this.state.hasError) {
       return (
         <>
-          <ButtonError />
           <h1 className='error-title'>
             Something went wrong. Star Wars heroes disappeared in an unknown
             direction.
