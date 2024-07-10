@@ -1,6 +1,5 @@
 import { Component } from 'react'
 import { PropsError, StateError } from '../../types'
-import { ButtonError } from './ButtonError'
 import './Error.scss'
 
 export class ErrorBoundary extends Component<PropsError, StateError> {
