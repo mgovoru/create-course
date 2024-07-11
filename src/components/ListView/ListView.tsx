@@ -1,7 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './ListView.scss'
 import { Person, PropsStr } from '../../types'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
+import { Pagination } from './Pagination'
+
+
+
 
 export function ListView(props: PropsStr) {
   const [state, setState] = useState({
@@ -9,26 +14,34 @@ export function ListView(props: PropsStr) {
     loading: true,
     error: null,
     strSearch: props.str,
+    total: 0,
   })
+  const charPerPage = 10;
+  const { page } = useParams()
+  const pageNum = parseInt(page as string, 10) || 1;
+   useEffect(() => {
+     axios
+       .get(
+         `https://swapi.dev/api/people/?page=${pageNum}&&search=${state.strSearch}`
+       )
+       .then((response) => {
+         setState((prevState) => ({
+           ...prevState,
+           people: response.data.results,
+           loading: false,
+           total: response.data.count,
+         }))
+       })
+       .catch((error) => {
+         setState((prevState) => ({
+           ...prevState,
+           loading: false,
+           error: error.message,
+         }))
+       })
+   }, [page, pageNum, state.strSearch])
 
-  axios
-    .get(`https://swapi.dev/api/people/?page=1&&search=${state.strSearch}`)
-    .then((response) => {
-      setState((prevState) => ({
-        ...prevState,
-        people: response.data.results,
-        loading: false,
-      }))
-    })
-    .catch((error) => {
-      setState((prevState) => ({
-        ...prevState,
-        loading: false,
-        error: error.message,
-      }))
-    })
-
-  const { people, loading, error } = state
+  const { people, loading, error, total } = state
 
   if (loading) {
     return <div className="loader-block"></div>
@@ -49,6 +62,7 @@ export function ListView(props: PropsStr) {
           <span>eye_color {person.eye_color}</span>
         </div>
       ))}
+      <Pagination totalPages={Math.ceil(total/ charPerPage)} />
     </div>
   )
 }

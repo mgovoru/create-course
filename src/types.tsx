@@ -49,3 +49,6 @@ export interface StateError {
 export interface StateThrowError {
   throw: boolean
 }
+export interface PropsNumber {
+  totalPages: number
+ }

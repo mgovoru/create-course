@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { SearchBar } from '../SeachBar/SearchBar'
 import './Container.scss'
 import { ListView } from '../ListView/ListView'
-import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary'
 import { ButtonError } from '../ErrorBoundary/ButtonError'
 
 export function Container() {
@@ -20,7 +19,7 @@ export function Container() {
     }))
   }
   return (
-    <ErrorBoundary>
+
       <div className="container">
         <SearchBar onButtonClick={handleSearch} />
         <ButtonError />
@@ -29,6 +28,5 @@ export function Container() {
           <ListView str={state.strSearch} />
         </div>
       </div>
-    </ErrorBoundary>
   )
 }
