@@ -9,6 +9,7 @@ export function DetailsView() {
   const details = new URLSearchParams(location.search).get('details') || '1';
   const [state, setState] = useState<dataResponse>(
     { data: {}, loading: true, error: null })
+
   useEffect(() => {
     axios
       .get(`https://swapi.dev/api/people/${details}`)
@@ -32,7 +33,11 @@ export function DetailsView() {
       console.log(data)
 
   if (loading) {
-    return <div className="loader-block"></div>
+    return (
+      <div>
+        <div className="loader-block"></div>
+      </div>
+    )
   }
 
   if (error) {
@@ -40,7 +45,7 @@ export function DetailsView() {
   }
 
   return (
-    <div className="details-hero">
+    <div className="details-hero" >
       <div key={details} className="hero">
         <div>{data.name}</div>
         <div>birth_year {data.birth_year}</div>
@@ -49,7 +54,6 @@ export function DetailsView() {
         <div>height {data.height}</div>
         <div>mass {data.mass}</div>
         <div>skin_color {data.skin_color}</div>
-        <div>starships {data.starships}</div>
       </div>
     </div>
   )

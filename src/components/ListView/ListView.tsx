@@ -2,11 +2,8 @@ import { useEffect, useState } from 'react'
 import './ListView.scss'
 import { Person, PropsStr } from '../../types'
 import axios from 'axios'
-import { Outlet, useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { Pagination } from './Pagination'
-
-
-
 
 export function ListView(props: PropsStr) {
   const [state, setState] = useState({
@@ -16,35 +13,43 @@ export function ListView(props: PropsStr) {
     strSearch: props.str,
     total: 0,
   })
-  const charPerPage = 10;
+  const charPerPage = 10
   const { page } = useParams()
-  const pageNum = parseInt(page as string, 10) || 1;
-   useEffect(() => {
-     axios
-       .get(
-         `https://swapi.dev/api/people/?page=${pageNum}&&search=${state.strSearch}`
-       )
-       .then((response) => {
-         setState((prevState) => ({
-           ...prevState,
-           people: response.data.results,
-           loading: false,
-           total: response.data.count,
-         }))
-       })
-       .catch((error) => {
-         setState((prevState) => ({
-           ...prevState,
-           loading: false,
-           error: error.message,
-         }))
-       })
-   }, [page, pageNum, state.strSearch])
+  const pageNum = parseInt(page as string, 10) || 1
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  function handlePersonClick(index: string) {
+    props.setIsVisible((prevState: boolean) => !prevState)
+    searchParams.set('details', index)
+    setSearchParams(searchParams)
+  }
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://swapi.dev/api/people/?page=${pageNum}&&search=${state.strSearch}`
+      )
+      .then((response) => {
+        setState((prevState) => ({
+          ...prevState,
+          people: response.data.results,
+          loading: false,
+          total: response.data.count,
+        }))
+      })
+      .catch((error) => {
+        setState((prevState) => ({
+          ...prevState,
+          loading: false,
+          error: error.message,
+        }))
+      })
+  }, [page, pageNum, state.strSearch])
 
   const { people, loading, error, total } = state
 
   if (loading) {
-    return <div className="loader-block"></div>
+    return <div><div className="loader-block"></div></div>
   }
 
   if (error) {
@@ -54,16 +59,19 @@ export function ListView(props: PropsStr) {
   return (
     <div className="perspective">
       {people.map((person: Person, index: number) => (
-        <div key={index} className="lists-hero">
+        <div
+          key={index}
+          className="lists-hero"
+          onClick={() =>
+            handlePersonClick(
+              String(person.url.slice(-3, -1).replace(/\//g, ''))
+            )
+          }
+        >
           {person.name}
-          {/* <span>{person.gender}</span>
-          <span>birth_year {person.birth_year}</span>
-          <span>hair_color {person.hair_color}</span>
-          <span>eye_color {person.eye_color}</span> */}
         </div>
       ))}
       <Pagination totalPages={Math.ceil(total / charPerPage)} />
-      <Outlet />
     </div>
   )
 }

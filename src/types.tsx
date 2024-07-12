@@ -39,7 +39,10 @@ export interface ClickProps {
 
 export interface PropsStr {
   str: string
+  isVisible: boolean
+  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 export interface PropsError {
   children: ReactNode
 }
@@ -56,4 +59,13 @@ export interface dataResponse {
   data: Partial<Person>
   loading: boolean
   error: null | string
+}
+export interface PropsVisible {
+  isVisible: boolean
+}
+export interface dataResponsePeople {
+  people: Person[]
+  loading: boolean
+  error: null | string
+  strSearch: string
 }

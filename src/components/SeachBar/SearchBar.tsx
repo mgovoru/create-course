@@ -1,12 +1,16 @@
 import { ChangeEvent } from 'react'
 import './SeachBar.scss'
 import { ClickProps } from '../../types'
+import { useNavigate } from 'react-router-dom'
 
 export function SearchBar(props: ClickProps) {
+  const navigate = useNavigate()
+  
   function inputChange(event: ChangeEvent<HTMLInputElement>) {
     localStorage.setItem('search', event.target.value.trim())
   }
   function handleButtonClick() {
+    navigate('/page/1')
     props.onButtonClick(localStorage.getItem('search') as string)
   }
   function handleButtonClickReset() {
