@@ -51,4 +51,9 @@ export interface StateThrowError {
 }
 export interface PropsNumber {
   totalPages: number
- }
+}
+export interface dataResponse {
+  data: Partial<Person>
+  loading: boolean
+  error: null | string
+}
