@@ -10,7 +10,7 @@ export function SearchBar(props: ClickProps) {
     localStorage.setItem('search', event.target.value.trim())
   }
   function handleButtonClick() {
-    navigate('/page/1')
+    navigate('/')
     props.onButtonClick(localStorage.getItem('search') as string)
   }
   function handleButtonClickReset() {
