@@ -1,21 +1,13 @@
 .perspective {
-  perspective: 500px;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden;
-  gap: 16px;
-
-  @media (max-width: 1180px) {
-    gap: 16px;
-  }
+  gap: 8px;
 }
 
 .lists-hero {
   padding-top: 24px;
-  transform: rotateX(35deg) scaleY(2.5);
-  transform-origin: bottom;
   font-size: calc(14px + 12 * ((100vw - 390px) / (1440 - 390)));
   font-weight: 700;
   color: darkorange;
@@ -24,19 +16,10 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  column-gap: 8px;
 
-  @media (max-width: 1180px) {
-    transform: rotateX(25deg) scaleY(2);
-  }
-
-  @media (max-width: 964px) {
-    transform: rotateX(25deg) scaleY(1.7);
-  }
 
   @media (max-width: 472px) {
     font-size: 18px;
-    transform: rotateX(20deg) scaleY(1.5);
   }
 }
 

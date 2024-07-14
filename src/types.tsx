@@ -36,13 +36,13 @@ export interface State {
 export interface ClickProps {
   onButtonClick: (str: string) => void
 }
-export interface Props {
-  state: State
-}
+
 export interface PropsStr {
   str: string
+  isVisible: boolean
+  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
-export interface PropsBegin {}
+
 export interface PropsError {
   children: ReactNode
 }
@@ -51,4 +51,21 @@ export interface StateError {
 }
 export interface StateThrowError {
   throw: boolean
+}
+export interface PropsNumber {
+  totalPages: number
+}
+export interface dataResponse {
+  data: Partial<Person>
+  loading: boolean
+  error: null | string
+}
+export interface PropsVisible {
+  isVisible: boolean
+}
+export interface dataResponsePeople {
+  people: Person[]
+  loading: boolean
+  error: null | string
+  strSearch: string
 }
