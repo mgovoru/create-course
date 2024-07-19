@@ -69,3 +69,6 @@ export interface dataResponsePeople {
   error: null | string
   strSearch: string
 }
+export interface ThemeProps {
+  children: React.ReactNode
+}
