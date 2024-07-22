@@ -72,3 +72,14 @@ export interface dataResponsePeople {
 export interface ThemeProps {
   children: React.ReactNode
 }
+export interface saveState {
+  value: PersonPage[]
+}
+export interface PersonPage {
+  value: Person,
+  page: number,
+  checked: boolean
+}
+export interface rootState {
+  card: saveState
+}
