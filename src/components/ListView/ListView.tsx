@@ -7,6 +7,7 @@ import { Pagination } from './Pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import { remove, save } from '../Store/slice'
 import store from '../Store/store'
+import { Flyelement } from '../FlyElement/Flyelement'
 
 export function ListView(props: PropsStr) {
   const [state, setState] = useState({
@@ -106,6 +107,7 @@ export function ListView(props: PropsStr) {
         </div>
       ))}
       <Pagination totalPages={Math.ceil(total / charPerPage)} />
+      <Flyelement />
     </div>
   )
 }
