@@ -23,10 +23,13 @@ const saveSlice = createSlice({
 					el.checked = !el.checked;
 				}
 			});
-		}
+		},
+		removeAll: (state) => {
+			state.value.length = 0
+		},
 	}
 });
 
-export const { save, remove, toggleChecked } = saveSlice.actions
+export const { save, remove, toggleChecked, removeAll } = saveSlice.actions
 
 export default saveSlice.reducer;

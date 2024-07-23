@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleChecked } from '../Store/slice'
+import { removeAll, toggleChecked } from '../Store/slice'
 import './Flyelement.scss'
 import { PropsFlyVisible, rootState } from '../../types'
 import close from './../../assets/close.svg'
@@ -10,6 +10,7 @@ export function Flyelement(props: PropsFlyVisible) {
 
   function unselectAll() {
     dispatch(toggleChecked())
+    dispatch(removeAll())
   }
   function closeElement() {
     props.setFlyisVisible((prevState) => !prevState)
@@ -25,7 +26,7 @@ export function Flyelement(props: PropsFlyVisible) {
         <button type="submit" className="button-svg" onClick={closeElement}>
           <img src={close} alt="" className="close-svg" />
         </button>
-        1234567
+        { `${checkedArray.length} items are selected` }
         <button type="submit" className="button" onClick={unselectAll}>
           Unselect all
         </button>
