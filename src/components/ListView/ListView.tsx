@@ -1,61 +1,40 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './ListView.scss'
 import { Person, PropsStr, rootState } from '../../types'
-import axios from 'axios'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { Pagination } from './Pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import { remove, save } from '../Store/slice'
 import store from '../Store/store'
 import { Flyelement } from '../FlyElement/Flyelement'
+import { heroesApi } from '../Api'
 
 export function ListView(props: PropsStr) {
-  const [state, setState] = useState({
-    people: [],
-    loading: true,
-    error: null,
-    strSearch: props.str,
-    total: 0,
-  })
-  const charPerPage = 10
   const { page } = useParams()
   const pageNum = parseInt(page as string, 10) || 1
+  const { useGetHeroesQuery } = heroesApi
+  // eslint-disable-next-line react-compiler/react-compiler
+  const { data = [], error, isLoading } = useGetHeroesQuery(
+    `?page=${pageNum}&&search=${props.str}`
+  )
+
+  const charPerPage = 10
+
   const [searchParams, setSearchParams] = useSearchParams()
   const dispatch = useDispatch()
   const checkedArray = useSelector((state: rootState) => state.card.value)
   const [flyIsVisible, setFlyIsVisible] = useState(false)
-
+  console.log(data)
+  const people = data.results
+  const total = data.count
   function handlePersonClick(index: string) {
     props.setIsVisible((prevState: boolean) => !prevState)
     searchParams.set('details', index)
     setSearchParams(searchParams)
   }
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://swapi.dev/api/people/?page=${pageNum}&&search=${state.strSearch}`
-      )
-      .then((response) => {
-        setState((prevState) => ({
-          ...prevState,
-          people: response.data.results,
-          loading: false,
-          total: response.data.count,
-        }))
-      })
-      .catch((error) => {
-        setState((prevState) => ({
-          ...prevState,
-          loading: false,
-          error: error.message,
-        }))
-      })
-  }, [page, pageNum, state.strSearch])
 
-  const { people, loading, error, total } = state
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div>
         <div className="loader-block"></div>
@@ -64,7 +43,8 @@ export function ListView(props: PropsStr) {
   }
 
   if (error) {
-    return <div className="error-block">{error}</div>
+    console.error(error)
+    return <div className="error-block">{error.data.detail}</div>
   }
   const isChecked = (person: Person) => {
     if (Array.isArray(checkedArray) && checkedArray.length > 0) {
@@ -76,7 +56,7 @@ export function ListView(props: PropsStr) {
 
   return (
     <div className="perspective">
-      {people.map((person: Person, index: number) => (
+      {people?.map((person: Person, index: number) => (
         <div className="ul-item" key={index}>
           <input
             type="checkbox"
@@ -85,7 +65,9 @@ export function ListView(props: PropsStr) {
             onChange={(event) => {
               if (event.target.checked) {
                 dispatch(save({ value: person, page: pageNum, checked: true }))
-                if (!flyIsVisible) { setFlyIsVisible((prevState) => !prevState) }
+                if (!flyIsVisible) {
+                  setFlyIsVisible((prevState) => !prevState)
+                }
               } else {
                 dispatch(
                   remove({ value: person, page: pageNum, checked: false })
