@@ -23,6 +23,7 @@ export function ListView(props: PropsStr) {
   const [searchParams, setSearchParams] = useSearchParams()
   const dispatch = useDispatch()
   const checkedArray = useSelector((state: rootState) => state.card.value)
+  const [flyIsVisible, setFlyIsVisible] = useState(false)
 
   function handlePersonClick(index: string) {
     props.setIsVisible((prevState: boolean) => !prevState)
@@ -67,12 +68,12 @@ export function ListView(props: PropsStr) {
   }
   const isChecked = (person: Person) => {
     if (Array.isArray(checkedArray) && checkedArray.length > 0) {
-      const elem = checkedArray.filter(el => el.value.name === person.name)[0]
-      return elem?.checked && (elem?.page === pageNum)
+      const elem = checkedArray.filter((el) => el.value.name === person.name)[0]
+      return elem?.checked && elem?.page === pageNum
     }
-    return false;
- }
-  
+    return false
+  }
+
   return (
     <div className="perspective">
       {people.map((person: Person, index: number) => (
@@ -86,6 +87,7 @@ export function ListView(props: PropsStr) {
             onChange={(event) => {
               if (event.target.checked) {
                 dispatch(save({ value: person, page: pageNum, checked: true }))
+                setFlyIsVisible((prevState) => !prevState)
               } else {
                 dispatch(
                   remove({ value: person, page: pageNum, checked: false })
@@ -107,7 +109,12 @@ export function ListView(props: PropsStr) {
         </div>
       ))}
       <Pagination totalPages={Math.ceil(total / charPerPage)} />
-      <Flyelement />
+      {flyIsVisible && (
+        <Flyelement
+          flyisVisible={flyIsVisible}
+          setFlyisVisible={setFlyIsVisible}
+        />
+      )}
     </div>
   )
 }

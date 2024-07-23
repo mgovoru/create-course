@@ -83,3 +83,7 @@ export interface PersonPage {
 export interface rootState {
   card: saveState
 }
+export interface PropsFlyVisible {
+  flyisVisible: boolean
+  setFlyisVisible: React.Dispatch<React.SetStateAction<boolean>>
+}

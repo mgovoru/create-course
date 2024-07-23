@@ -17,9 +17,16 @@ const saveSlice = createSlice({
 		remove: (state, action: PayloadAction<PersonPage>) => {
 			state.value = state.value.filter(el => el.value.name !== action.payload.value.name)
 		},
-	},
+		toggleChecked(state) {
+			state.value.forEach(el => {
+				if (el.checked) {
+					el.checked = !el.checked;
+				}
+			});
+		}
+	}
 });
 
-export const { save, remove } = saveSlice.actions;
+export const { save, remove, toggleChecked } = saveSlice.actions
 
 export default saveSlice.reducer;
