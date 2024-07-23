@@ -80,14 +80,12 @@ export function ListView(props: PropsStr) {
         <div className="ul-item" key={index}>
           <input
             type="checkbox"
-            name=""
-            id=""
             className="input-checkbox"
             checked={isChecked(person) || false}
             onChange={(event) => {
               if (event.target.checked) {
                 dispatch(save({ value: person, page: pageNum, checked: true }))
-                setFlyIsVisible((prevState) => !prevState)
+                if (!flyIsVisible) { setFlyIsVisible((prevState) => !prevState) }
               } else {
                 dispatch(
                   remove({ value: person, page: pageNum, checked: false })
