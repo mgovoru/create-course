@@ -14,7 +14,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.2.6",
+    "@reduxjs/toolkit": "https://pkg.csb.dev/reduxjs/redux-toolkit/commit/beb818cb/@reduxjs/toolkit",
     "@testing-library/react": "^16.0.0",
     "axios": "^1.7.2",
     "file-saver": "^2.0.5",

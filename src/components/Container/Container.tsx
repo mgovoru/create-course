@@ -6,7 +6,7 @@ import { ButtonError } from '../ErrorBoundary/ButtonError'
 import { DetailsView } from '../DetailsView/DetailsView'
 import { dataResponsePeople } from '../../types'
 import { useSwitchTheme, useTheme } from '../Theme/Uses'
-import  darkImage  from './../../assets/dark.jpg'
+import darkImage from './../../assets/dark.jpg'
 import lightImage from './../../assets/light.jpg'
 
 export function Container() {

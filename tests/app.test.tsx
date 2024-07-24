@@ -1,9 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import App from '../src/App'
+import { Provider } from 'react-redux'
+import store from '../src/components/Store/store'
 
 describe('App', () => {
   it('renders the component', () => {
-    render(<App />)
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
     const element = screen.getByText('Characters')
     expect(element).not.toBeNull()
   })

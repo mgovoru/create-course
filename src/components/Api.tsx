@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { ApiResult } from '../types'
 
 export const heroesApi = createApi({
   reducerPath: 'heroesApi',
@@ -6,8 +7,9 @@ export const heroesApi = createApi({
     baseUrl: `https://swapi.dev/api/people/`,
   }),
   endpoints: (builder) => ({
-    getHeroes: builder.query({
+    getHeroes: builder.query<ApiResult, string>({
       query: (str: string) => `${str}`,
     }),
   }),
 })
+ export const { useGetHeroesQuery } = heroesApi

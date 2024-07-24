@@ -14,7 +14,6 @@
   display: flex;
   flex-wrap: wrap;
 
-
   @media (max-width: 472px) {
     font-size: 18px;
   }
@@ -48,7 +47,7 @@
 
 .ul-item {
   display: flex;
-  align-items:center;
+  align-items: center;
   gap: 16px;
 }
 

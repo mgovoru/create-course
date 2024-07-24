@@ -1,5 +1,5 @@
-import { useContext } from "react"
-import { ThemeContext, ThemeSwitchContext } from "./ThemeSwitch"
+import { useContext } from 'react'
+import { ThemeContext, ThemeSwitchContext } from './ThemeSwitch'
 
 export function useTheme() {
   return useContext(ThemeContext)

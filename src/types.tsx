@@ -76,8 +76,8 @@ export interface saveState {
   value: PersonPage[]
 }
 export interface PersonPage {
-  value: Person,
-  page: number,
+  value: Person
+  page: number
   checked: boolean
 }
 export interface rootState {
@@ -87,3 +87,10 @@ export interface PropsFlyVisible {
   flyisVisible: boolean
   setFlyisVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
+export interface ApiResponse {
+  count: number
+  next: string | null
+  previous: string | null
+  results: Person[]
+}
+export type ApiResult =  ApiResponse | Person 

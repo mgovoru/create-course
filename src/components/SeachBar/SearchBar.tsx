@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 export function SearchBar(props: ClickProps) {
   const navigate = useNavigate()
-  
+
   function inputChange(event: ChangeEvent<HTMLInputElement>) {
     localStorage.setItem('search', event.target.value.trim())
   }

@@ -4,8 +4,6 @@ import { ThemeProps } from '../../types'
 export const ThemeContext = createContext(true)
 export const ThemeSwitchContext = createContext(() => {})
 
-
-
 export function Theme({ children }: ThemeProps) {
   const [dark, setDarkSwitch] = useState(true)
   function toggleTheme() {
