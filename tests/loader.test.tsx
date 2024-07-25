@@ -9,8 +9,11 @@ import { Flyelement } from '../src/components/FlyElement/Flyelement'
 import { UnknownPage } from '../src/components/404/404'
 import { Pagination } from '../src/components/ListView/Pagination'
 import { ErrorBoundary } from '../src/components/ErrorBoundary/ErrorBoundary'
+import { ButtonError } from '../src/components/ErrorBoundary/ButtonError'
+import React from 'react'
+import App from '../src/App'
 
-describe('ListView', () => {
+describe('renders', () => {
   it('renders the component', () => {
     render(
       <Provider store={store}>
@@ -26,8 +29,9 @@ describe('ListView', () => {
     )
     const block = screen.findByTestId('loader-block')
     expect(block).not.toBeNull()
+    const blockItem = screen.findByTestId('perspective')
+    expect(blockItem).not.toBeNull()
   })
-  
   it('renders the component', () => {
     render(
       <Provider store={store}>
@@ -80,4 +84,33 @@ describe('ListView', () => {
       const block = screen.findByTestId('error-title')
       expect(block).not.toBeNull()
     })
+   it('renders error', () => {
+     const error = new Error('Test error')
+     const { getByText } = render(
+       <div className="error-block">{error.toString()}</div>
+     )
+     expect(getByText('Error: Test error')).not.toBeNull()
+   })
+     it('renders the component', () => {
+       render(
+         <Provider store={store}>
+           <ButtonError></ButtonError>
+         </Provider>
+       )
+       const block = screen.findByTestId('Error!')
+       expect(block).not.toBeNull()
+     })
+      it('renders the component', () => {
+        render(
+          <React.StrictMode>
+            <Provider store={store}>
+              <ErrorBoundary>
+                <App />
+              </ErrorBoundary>
+            </Provider>
+          </React.StrictMode>
+        )
+        const block = screen.findByTestId('Characters')
+        expect(block).not.toBeNull()
+      })
 })

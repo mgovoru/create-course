@@ -40,7 +40,7 @@ export function Container() {
   return (
     <div className="container" style={themeStyle}>
       <button onClick={switchTheme} className="button">
-        dark theme
+        change theme
       </button>
       <SearchBar onButtonClick={handleSearch} />
       <ButtonError />
