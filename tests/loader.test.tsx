@@ -33,6 +33,7 @@ describe('renders', () => {
     expect(blockItem).not.toBeNull()
   })
   it('renders the component', () => {
+    
     render(
       <Provider store={store}>
         <DetailsView />
