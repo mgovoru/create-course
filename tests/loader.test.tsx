@@ -14,7 +14,7 @@ import React from 'react'
 import App from '../src/App'
 import { vi } from 'vitest'
 import { toggleChecked, removeAll } from './../src/components/Store/slice'
-import { heroesApi, useGetHeroesQuery } from './heroesApiMock'
+import { heroesApi } from './heroesApiMock'
 import { configureStore } from '@reduxjs/toolkit'
 
 it('renders the component', () => {
@@ -159,6 +159,22 @@ it('test Api', async () => {
   render(
     <Provider store={store}>
       <App />
+    </Provider>
+  )
+  const element = await screen.findByText('Luke Skywalker')
+  expect(element).not.toBeNull()
+})
+it('test details', async () => {
+  const store = configureStore({
+    reducer: {
+      [heroesApi.reducerPath]: heroesApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(heroesApi.middleware),
+  })
+  render(
+    <Provider store={store}>
+      <DetailsView />
     </Provider>
   )
   const element = await screen.findByText('Luke Skywalker')
