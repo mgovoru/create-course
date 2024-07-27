@@ -14,7 +14,8 @@ import React from 'react'
 import App from '../src/App'
 import { vi } from 'vitest'
 import { toggleChecked, removeAll } from './../src/components/Store/slice'
-import { heroesApi } from '../src/components/Api'
+import { heroesApi, useGetHeroesQuery } from './heroesApiMock'
+import { configureStore } from '@reduxjs/toolkit'
 
 it('renders the component', () => {
   render(
@@ -146,16 +147,20 @@ it('renders the component', () => {
   const block = screen.findByTestId('Characters')
   expect(block).not.toBeNull()
 })
-it('test Api', () => {
-// const spyAPIcall = vi.spyOn(heroesApi, 'useGetHeroesQuery')
-render(
-  <Provider store={store}>
-    <ListView
-      str={''}
-      isVisible={false}
-      setIsVisible={() => { }}
-    />
-  </Provider>
-)
-// expect(spyAPIcall).toHaveBeenCalledTimes(1);
+
+it('test Api', async () => {
+  const store = configureStore({
+    reducer: {
+      [heroesApi.reducerPath]: heroesApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(heroesApi.middleware),
+  })
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  )
+  const element = await screen.findByText('Luke Skywalker')
+  expect(element).not.toBeNull()
 })

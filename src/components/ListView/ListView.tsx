@@ -23,7 +23,7 @@ export function ListView(props: PropsStr) {
 
   const [searchParams, setSearchParams] = useSearchParams()
   const dispatch = useDispatch()
-  const checkedArray = useSelector((state: rootState) => state.card.value)
+  const checkedArray = useSelector((state: rootState) => state.card?.value)
   const [flyIsVisible, setFlyIsVisible] = useState(false)
 
   function handlePersonClick(index: string) {

@@ -3,12 +3,15 @@ import App from '../src/App'
 import { Provider } from 'react-redux'
 import store from '../src/components/Store/store'
 import { RenderApp } from '../src'
+import { MemoryRouter } from 'react-router-dom'
 
 describe('App', () => {
   it('renders the component', () => {
     render(
       <Provider store={store}>
-        <App />
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
       </Provider>
     )
     const element = screen.getByText('Characters')

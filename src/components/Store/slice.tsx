@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { PersonPage, saveState } from '../../types'
 
 const initialState: saveState = {
-  value: [],
+  value: []
 }
 
 const saveSlice = createSlice({

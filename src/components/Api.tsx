@@ -1,5 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import {  fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ApiResult } from '../types'
+import { createApi } from '@reduxjs/toolkit/query/react'
+
 
 export const heroesApi = createApi({
   reducerPath: 'heroesApi',
