@@ -63,10 +63,14 @@ export function Flyelement(props: PropsFlyVisible) {
           <img src={close} alt="" className="close-svg" />
         </button>
         {`${checkedArray.length} items are selected`}
-        <button type="submit" className="button" onClick={unselectAll}>
+        <button
+          type="submit"
+          className="button button-unselect"
+          onClick={unselectAll}
+        >
           Unselect all
         </button>
-        <button type="submit" className="button" onClick={downloadAll}>
+        <button type="submit" className="button button-download" onClick={downloadAll}>
           <a className="link-download" href="#" onClick={downloadCSV}>
             Download
           </a>

@@ -15,7 +15,7 @@ describe('App', () => {
     expect(element).not.toBeNull()
   })
   it('renders the component', () => {
-      const id = 'root'
+    const id = 'root'
     document.body.innerHTML = `<div id="${id}"></div>`
     expect(() => RenderApp(id)).not.toThrow()
   })

@@ -10,4 +10,5 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(heroesApi.middleware),
 })
+
 export default store
