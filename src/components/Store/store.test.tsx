@@ -3,7 +3,7 @@ import reducer, {
   removeAll,
   save,
   toggleChecked,
-} from '../src/components/Store/slice'
+} from './slice'
 
 test('should return the initial state', () => {
   expect(reducer(undefined, { type: 'unknown' })).toEqual({ value: [] })

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1722153295933" clover="3.2.0">
-  <project timestamp="1722153295933" name="All files">
-    <metrics statements="477" coveredstatements="384" conditionals="59" coveredconditionals="48" methods="42" coveredmethods="28" elements="578" coveredelements="460" complexity="0" loc="477" ncloc="477" packages="11" files="17" classes="17"/>
+<coverage generated="1722154508655" clover="3.2.0">
+  <project timestamp="1722154508655" name="All files">
+    <metrics statements="477" coveredstatements="384" conditionals="60" coveredconditionals="49" methods="42" coveredmethods="28" elements="579" coveredelements="461" complexity="0" loc="477" ncloc="477" packages="11" files="17" classes="17"/>
     <package name="src">
       <metrics statements="16" coveredstatements="14" conditionals="3" coveredconditionals="2" methods="3" coveredmethods="2"/>
       <file name="Api.tsx" path="D:\current\react_week_1\create-course\src\Api.tsx">
@@ -14,10 +14,10 @@
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="11" count="3" type="stmt"/>
-        <line num="12" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="13" count="3" type="stmt"/>
-        <line num="14" count="3" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
       </file>
@@ -88,10 +88,10 @@
         <metrics statements="6" coveredstatements="6" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.components.Container">
@@ -152,9 +152,9 @@
       </file>
     </package>
     <package name="src.components.DetailsView">
-      <metrics statements="36" coveredstatements="34" conditionals="6" coveredconditionals="5" methods="2" coveredmethods="2"/>
+      <metrics statements="36" coveredstatements="34" conditionals="7" coveredconditionals="6" methods="2" coveredmethods="2"/>
       <file name="DetailsView.tsx" path="D:\current\react_week_1\create-course\src\components\DetailsView\DetailsView.tsx">
-        <metrics statements="36" coveredstatements="34" conditionals="6" coveredconditionals="5" methods="2" coveredmethods="2"/>
+        <metrics statements="36" coveredstatements="34" conditionals="7" coveredconditionals="6" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -170,8 +170,8 @@
         <line num="18" count="4" type="stmt"/>
         <line num="19" count="4" type="stmt"/>
         <line num="20" count="4" type="stmt"/>
-        <line num="22" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="24" count="5" type="cond" truecount="0" falsecount="1"/>
+        <line num="22" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="3" type="cond" truecount="0" falsecount="1"/>
         <line num="25" count="0" type="stmt"/>
         <line num="26" count="0" type="cond" truecount="1" falsecount="0"/>
         <line num="27" count="1" type="stmt"/>
@@ -229,13 +229,13 @@
         <line num="12" count="4" type="stmt"/>
         <line num="13" count="4" type="stmt"/>
         <line num="15" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="16" count="11" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="11" type="cond" truecount="2" falsecount="0"/>
         <line num="17" count="4" type="stmt"/>
         <line num="18" count="4" type="stmt"/>
         <line num="19" count="4" type="stmt"/>
         <line num="22" count="4" type="stmt"/>
         <line num="23" count="4" type="stmt"/>
-        <line num="25" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="25" count="4" type="stmt"/>
         <line num="26" count="7" type="stmt"/>
         <line num="27" count="11" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
@@ -526,7 +526,7 @@
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="11" count="3" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
       </file>

@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import App from '../src/base/App'
+import App from './App'
 import { Provider } from 'react-redux'
-import store from '../src/components/Store/store'
-import { RenderApp } from '../src/base'
+import store from '../components/Store/store'
+import { RenderApp } from '.'
 import { MemoryRouter } from 'react-router-dom'
 
 describe('App', () => {
