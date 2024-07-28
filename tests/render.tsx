@@ -1,10 +1,9 @@
-
-import React, { ReactNode } from 'react';
-import { render as rtlRender, RenderOptions } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import React, { ReactNode } from 'react'
+import { render as rtlRender, RenderOptions } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 
 interface RenderOptionsWithRouter extends RenderOptions {
-  route?: string;
+  route?: string
 }
 
 function render(
@@ -13,9 +12,9 @@ function render(
   options?: Omit<RenderOptions, 'wrapper'>
 ) {
   function Wrapper({ children }: { children: ReactNode }) {
-    return <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>;
+    return <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
   }
-  return rtlRender(ui, { wrapper: Wrapper, ...options });
+  return rtlRender(ui, { wrapper: Wrapper, ...options })
 }
 
-export { render };
+export { render }

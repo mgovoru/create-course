@@ -7,16 +7,12 @@
 }
 
 .lists-hero {
-  padding-top: 24px;
   font-size: calc(14px + 12 * ((100vw - 390px) / (1440 - 390)));
   font-weight: 700;
   color: darkorange;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-
 
   @media (max-width: 472px) {
     font-size: 18px;
@@ -47,4 +43,18 @@
   max-width: 500px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.ul-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.input-checkbox {
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 4px;
+  position: relative;
 }
