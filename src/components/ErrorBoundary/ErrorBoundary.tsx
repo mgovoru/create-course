@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { PropsError, StateError } from '../../types'
+import { PropsError, StateError } from '../../base/types'
 import './Error.scss'
 
 export class ErrorBoundary extends Component<PropsError, StateError> {

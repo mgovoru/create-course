@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react'
-import { ThemeProps } from '../../types'
+import { ThemeProps } from '../../base/types'
 
 export const ThemeContext = createContext(true)
 export const ThemeSwitchContext = createContext(() => {})

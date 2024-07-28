@@ -42,7 +42,9 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./tests/setup.ts'],
-    include: ['./tests/**/*.test.{ts,tsx}'],
+    include: [
+      'src/**/*.test.{js,jsx,ts,tsx}',
+      './tests/**/*.test.{ts,tsx}'],
     globals: true,
     alias: {
       '../Api': '../../../tests/heroesApiMock.ts',

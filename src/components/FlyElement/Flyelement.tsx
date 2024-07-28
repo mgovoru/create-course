@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { removeAll, toggleChecked } from '../Store/slice'
 import './Flyelement.scss'
-import { PropsFlyVisible, rootState } from '../../types'
+import { PropsFlyVisible, rootState } from '../../base/types'
 import close from './../../assets/close.svg'
 import { saveAs } from 'file-saver'
 
@@ -70,7 +70,11 @@ export function Flyelement(props: PropsFlyVisible) {
         >
           Unselect all
         </button>
-        <button type="submit" className="button button-download" onClick={downloadAll}>
+        <button
+          type="submit"
+          className="button button-download"
+          onClick={downloadAll}
+        >
           <a className="link-download" href="#" onClick={downloadCSV}>
             Download
           </a>

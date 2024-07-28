@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { PropsNumber } from '../../types'
+import { PropsNumber } from '../../base/types'
 import './Pagination.scss'
 
 export function Pagination(props: PropsNumber) {

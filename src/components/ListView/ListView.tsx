@@ -1,23 +1,27 @@
 import { useState } from 'react'
 import './ListView.scss'
-import { ApiResponse, ApiResult, Person, PropsStr, rootState } from '../../types'
+import {
+  ApiResponse,
+  ApiResult,
+  Person,
+  PropsStr,
+  rootState,
+} from '../../base/types'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { Pagination } from './Pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import { remove, save } from '../Store/slice'
 import store from '../Store/store'
 import { Flyelement } from '../FlyElement/Flyelement'
-import { useGetHeroesQuery } from '../Api'
+import { useGetHeroesQuery } from '../../Api'
 
 export function ListView(props: PropsStr) {
   const { page } = useParams()
   const pageNum = parseInt(page as string, 10) || 1
 
-  const {
-    data,
-    error,
-    isLoading,
-  } = useGetHeroesQuery(`?page=${pageNum}&&search=${props.str}`)
+  const { data, error, isLoading } = useGetHeroesQuery(
+    `?page=${pageNum}&&search=${props.str}`
+  )
 
   const charPerPage = 10
 
@@ -55,8 +59,8 @@ export function ListView(props: PropsStr) {
   }
   if (data) {
     if (isApiResponse(data)) {
-        const people = data.results
-        const total = data.count
+      const people = data.results
+      const total = data.count
       return (
         <div className="perspective">
           {people?.map((person: Person, index: number) => (

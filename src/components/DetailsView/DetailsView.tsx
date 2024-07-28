@@ -1,21 +1,17 @@
 import { useLocation } from 'react-router-dom'
 import './DetailsView.scss'
-import { useGetHeroesQuery } from '../Api'
-import { ApiResult, Person } from '../../types'
+import { useGetHeroesQuery } from '../../Api'
+import { ApiResult, Person } from '../../base/types'
 
 export function DetailsView() {
   const location = useLocation()
   const details = new URLSearchParams(location.search).get('details') || '1'
 
-  const {
-    data,
-    error,
-    isLoading,
-  } = useGetHeroesQuery(`${details}`)
+  const { data, error, isLoading } = useGetHeroesQuery(`${details}`)
 
- const isApiPerson = (response: ApiResult): response is Person => {
-   return 'name' in response
- }
+  const isApiPerson = (response: ApiResult): response is Person => {
+    return 'name' in response
+  }
 
   if (isLoading) {
     return (

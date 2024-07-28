@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import './App.scss'
-import { Container } from './components/Container/Container'
-import { UnknownPage } from './components/404/404'
-import { Theme } from './components/Theme/ThemeSwitch'
+import { Container } from '../components/Container/Container'
+import { UnknownPage } from '../components/404/404'
+import { Theme } from '../components/Theme/ThemeSwitch'
 
 function App() {
   return (

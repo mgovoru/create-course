@@ -23,4 +23,4 @@ export const useGetHeroesQuery = vi.fn(() => ([{
 		checked: false,
 	}]
 ));
-export * from './../src/components/Api';
+export * from './../src/Api';

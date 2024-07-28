@@ -1,3 +1,3 @@
-import { RenderApp } from './index.tsx'
+import { RenderApp } from './base/index.tsx'
 
 RenderApp('root')

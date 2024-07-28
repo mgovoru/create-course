@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import saveReducer from './slice'
-import { heroesApi } from '../Api'
+import { heroesApi } from '../../Api'
 
 const store = configureStore({
   reducer: {
