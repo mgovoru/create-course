@@ -3,7 +3,7 @@ import { render } from '../../../tests/render'
 import { Provider } from 'react-redux'
 import store from '../Store/store'
 import { DetailsView } from './DetailsView'
-it('renders the component', () => {
+it('renders the component DetailsView', () => {
   render(
     <Provider store={store}>
       <DetailsView />

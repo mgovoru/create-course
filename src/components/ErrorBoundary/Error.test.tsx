@@ -3,7 +3,7 @@ import { render } from '../../../tests/render'
 import { Provider } from 'react-redux'
 import store from '../Store/store'
 import { ErrorBoundary } from './ErrorBoundary'
-it('renders the component', () => {
+it('renders the component ErrorBoundary', () => {
   render(
     <Provider store={store}>
       <ErrorBoundary children={undefined}></ErrorBoundary>

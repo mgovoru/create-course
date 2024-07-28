@@ -27,6 +27,16 @@
   .button {
     margin-bottom: 0px;
   }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    background-color: transparent;
+    cursor: default;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .close-svg {

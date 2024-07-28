@@ -65,7 +65,7 @@ test('should handle being added to array', () => {
     ],
   })
 })
-test('should handle being remove array', () => {
+test('should handle being remove from array', () => {
   const previousState = {
     value: [
       {
