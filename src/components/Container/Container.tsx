@@ -6,8 +6,8 @@ import { ButtonError } from '../ErrorBoundary/ButtonError'
 import { DetailsView } from '../DetailsView/DetailsView'
 import { dataResponsePeople } from '../../base/types'
 import { useSwitchTheme, useTheme } from '../Theme/Uses'
-import darkImage from './../../assets/dark.jpg'
-import lightImage from './../../assets/light.jpg'
+// import darkImage from './../../assets/dark.jpg'
+// import lightImage from './../../assets/light.jpg'
 
 export function Container() {
   const [state, setState] = useState<dataResponsePeople>({
@@ -24,7 +24,9 @@ export function Container() {
   const switchTheme = useSwitchTheme()
 
   const themeStyle = {
-    backgroundImage: darkTheme ? `url(${darkImage})` : `url(${lightImage})`,
+    backgroundImage: darkTheme
+      ? `url('dark.jpg')`
+      : `url('light.jpg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
