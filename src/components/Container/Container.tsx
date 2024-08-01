@@ -25,8 +25,8 @@ export function Container() {
 
   const themeStyle = {
     backgroundImage: darkTheme
-      ? `url('dark.jpg')`
-      : `url('light.jpg')`,
+      ? `url('/dark.jpg')`
+      : `url('/light.jpg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',

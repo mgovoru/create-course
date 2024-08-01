@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { removeAll, toggleChecked } from '../Store/slice'
 import './Flyelement.scss'
 import { PropsFlyVisible, rootState } from '../../base/types'
-import close from './../../assets/close.svg'
+import Image from 'next/image'
+import close from '../../../public/close.svg'
 import { saveAs } from 'file-saver'
 
 export function Flyelement(props: PropsFlyVisible) {
@@ -60,7 +61,7 @@ export function Flyelement(props: PropsFlyVisible) {
     <div className="fly-modal">
       <div className="fly-content">
         <button type="submit" className="button-svg" onClick={closeElement}>
-          <img src={close} alt="" className="close-svg" />
+          <Image src={close} alt="" className="close-svg" />
         </button>
         {`${checkedArray.length} items are selected`}
         <button
