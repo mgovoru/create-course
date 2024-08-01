@@ -1,3 +1,4 @@
+import React from 'react'
 import './404.scss'
 export function UnknownPage() {
   return (

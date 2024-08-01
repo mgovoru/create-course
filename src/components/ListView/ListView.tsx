@@ -7,16 +7,19 @@ import {
   PropsStr,
   rootState,
 } from '../../base/types'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { Pagination } from './Pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import { remove, save } from '../Store/slice'
 import store from '../Store/store'
 import { Flyelement } from '../FlyElement/Flyelement'
 import { useGetHeroesQuery } from '../../Api'
+import { useRouter } from 'next/router'
 
 export function ListView(props: PropsStr) {
-  const { page } = useParams()
+  // const { page } = useParams()
+  const router = useRouter()
+  const { page } = router.query
   const pageNum = parseInt(page as string, 10) || 1
 
   const { data, error, isLoading } = useGetHeroesQuery(
