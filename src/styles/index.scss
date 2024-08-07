@@ -3,22 +3,35 @@
 body {
   margin: 0;
   display: flex;
+  justify-content: center;
   place-items: center;
-  min-width: 100vw;
-}
-
-#root {
+  width: 100vw;
   font-family: 'Montserrat', sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100%;
   min-height: 100vh;
   margin: 0 auto;
   text-align: center;
-  background-image: url('/sky.jpg');
+  background-image: url('./../../public/images/sky.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.button {
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  background-color: white;
+  width: 140px;
+  height: 30px;
+  border: 1px solid black;
+  position: relative;
+  margin-bottom: 16px;
+  color: inherit;
+  font-family: inherit;
 }

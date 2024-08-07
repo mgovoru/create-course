@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { PropsNumber } from '../../base/types'
-import './Pagination.scss'
+import styles from '../../styles/Pagination.module.scss'
 
 export function Pagination(props: PropsNumber) {
   return (
-    <div className="pagination">
+    <div className={styles['pagination']}>
       {Array.from({ length: props.totalPages }, (_, i) => (
-        <Link key={i} to={`/page/${i + 1}`} className="link">
+        <Link key={i} href={`/page/${i + 1}`} className={styles["link"]}>
           {i + 1}
         </Link>
       ))}

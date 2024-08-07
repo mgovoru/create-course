@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom'
-import './DetailsView.scss'
+import styles from '../../styles/DetailsView.module.scss'
 import { useGetHeroesQuery } from '../../Api'
 import { ApiResult, Person } from '../../base/types'
 
@@ -16,7 +16,7 @@ export function DetailsView() {
   if (isLoading) {
     return (
       <div>
-        <div className="loader-block"></div>
+        <div className={styles.loaderblock}></div>
       </div>
     )
   }

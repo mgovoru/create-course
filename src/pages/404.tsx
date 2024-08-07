@@ -1,8 +1,8 @@
 import React from 'react'
-import './404.scss'
-export function UnknownPage() {
+import styles from './../styles/404.module.scss'
+export default function UnknownPage() {
   return (
-    <div className="unknown-title">
+    <div className={styles["unknown-title"]}>
       The requested page was not found. You may have to wait until the next Star
       Wars installment comes out
     </div>

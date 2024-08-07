@@ -1,20 +1,25 @@
+
 import { useState } from 'react'
 import { SearchBar } from '../SeachBar/SearchBar'
-import './Container.scss'
+import styles from  '../../styles/container.module.scss'
 import { ListView } from '../ListView/ListView'
 import { ButtonError } from '../ErrorBoundary/ButtonError'
 import { DetailsView } from '../DetailsView/DetailsView'
-import { dataResponsePeople } from '../../base/types'
+import { ApiResponse, dataResponsePeople } from '../../base/types'
 import { useSwitchTheme, useTheme } from '../Theme/Uses'
+import React from 'react'
+import { Provider } from 'react-redux'
+import store from '../Store/store'
 // import darkImage from './../../assets/dark.jpg'
 // import lightImage from './../../assets/light.jpg'
 
-export function Container() {
+export function Container(props: ApiResponse) {
   const [state, setState] = useState<dataResponsePeople>({
     people: [],
     loading: true,
     error: null,
-    strSearch: localStorage.getItem('search') || '',
+    //strSearch: localStorage.getItem('search') || '',
+    strSearch: '',
   })
 
   const [isVisible, setIsVisible] = useState(false)
@@ -25,8 +30,8 @@ export function Container() {
 
   const themeStyle = {
     backgroundImage: darkTheme
-      ? `url('/dark.jpg')`
-      : `url('/light.jpg')`,
+      ? `url('images/dark.jpg')`
+      : `url('images/light.jpg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -40,23 +45,26 @@ export function Container() {
     }))
   }
   return (
-    <div className="container" style={themeStyle}>
-      <button onClick={switchTheme} className="button">
-        change theme
-      </button>
-      <SearchBar onButtonClick={handleSearch} />
-      <ButtonError />
-      <div className="heroes">
-        <h1 className="title-hero">Characters</h1>
-        <div className="parts">
-          <ListView
-            str={state.strSearch}
-            isVisible={isVisible}
-            setIsVisible={setIsVisible}
-          />
-          {isVisible && <DetailsView />}
+    <Provider store={store}>
+      <div className={styles['container']} style={themeStyle}>
+        <button onClick={switchTheme} className={styles.button}>
+          change theme
+        </button>
+        <SearchBar onButtonClick={handleSearch} />
+        <ButtonError />
+        <div className={styles.heroes}>
+          <h1 className={styles.titlehero}>Characters</h1>
+          <div className={styles.parts}>
+            <ListView
+              str={state.strSearch}
+              isVisible={isVisible}
+              setIsVisible={setIsVisible}
+              heroes={props}
+            />
+            {isVisible && <DetailsView />}
+          </div>
         </div>
       </div>
-    </div>
+    </Provider>
   )
 }

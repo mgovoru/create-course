@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { PropsError, StateError } from '../../base/types'
-import './Error.scss'
+import styles from '../../styles/Error.module.scss'
 
 export class ErrorBoundary extends Component<PropsError, StateError> {
   constructor(props: PropsError) {
@@ -16,7 +16,7 @@ export class ErrorBoundary extends Component<PropsError, StateError> {
     if (this.state.hasError) {
       return (
         <>
-          <h1 className="error-title">
+          <h1 className={styles["error-title"]}>
             Something went wrong. Star Wars heroes disappeared in an unknown
             direction.
           </h1>
