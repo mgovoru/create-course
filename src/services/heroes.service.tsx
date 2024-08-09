@@ -7,8 +7,9 @@ export const HeroesService = {
 		const { data } = await axios.get(`/people/?page=${page}`)
     return data
   },
-  // async getHero(id: string) {
-  //   const { data } = await axios.get('/people', { params: { id } })
-  //   return data[0]
-  // },
+  async getHero(id: string) {
+    const { data } = await axios.get(`/people/${id}`)
+    const hero = data
+    return hero
+  },
 }

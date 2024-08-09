@@ -58,25 +58,35 @@ export function Flyelement(props: PropsFlyVisible) {
     saveAs(blob, `${checkedArray.length}_characters_starwars.csv`)
   }
   return (
-    <div className="fly-modal">
-      <div className="fly-content">
-        <button type="submit" className="button-svg" onClick={closeElement}>
-          <Image src={close} alt="" className="close-svg" />
+    <div className={styles['fly-modal']}>
+      <div className={styles['fly-content']}>
+        <button
+          type="submit"
+          className={styles['button-svg']}
+          onClick={closeElement}
+        >
+          <Image
+            src="images/close.svg"
+            alt=""
+            className={styles['close-svg']}
+            width="30"
+            height="30"
+          />
         </button>
         {`${checkedArray.length} items are selected`}
         <button
           type="submit"
-          className="button button-unselect"
+          className={styles['button button-unselect']}
           onClick={unselectAll}
         >
           Unselect all
         </button>
         <button
           type="submit"
-          className="button button-download"
+          className={styles['button button-download']}
           onClick={downloadAll}
         >
-          <a className="link-download" href="#" onClick={downloadCSV}>
+          <a className={styles['link-download']} href="#" onClick={downloadCSV}>
             Download
           </a>
         </button>

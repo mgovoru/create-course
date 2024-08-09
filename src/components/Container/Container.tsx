@@ -1,27 +1,23 @@
-
 import { useState } from 'react'
 import { SearchBar } from '../SeachBar/SearchBar'
-import styles from  '../../styles/container.module.scss'
+import styles from '../../styles/container.module.scss'
 import { ListView } from '../ListView/ListView'
 import { ButtonError } from '../ErrorBoundary/ButtonError'
-import { DetailsView } from '../DetailsView/DetailsView'
-import { ApiResponse, dataResponsePeople } from '../../base/types'
+import { dataResponsePeople, propsCommon } from '../../base/types'
 import { useSwitchTheme, useTheme } from '../Theme/Uses'
 import React from 'react'
 import { Provider } from 'react-redux'
 import store from '../Store/store'
-// import darkImage from './../../assets/dark.jpg'
-// import lightImage from './../../assets/light.jpg'
+import { DetailsView } from '../DetailsView/DetailsView'
 
-export function Container(props: ApiResponse) {
+export function Container(props: propsCommon) {
   const [state, setState] = useState<dataResponsePeople>({
     people: [],
     loading: true,
     error: null,
-    //strSearch: localStorage.getItem('search') || '',
+    // strSearch: localStorage.getItem('search') || '',
     strSearch: '',
   })
-
   const [isVisible, setIsVisible] = useState(false)
 
   const darkTheme = useTheme()
@@ -59,9 +55,9 @@ export function Container(props: ApiResponse) {
               str={state.strSearch}
               isVisible={isVisible}
               setIsVisible={setIsVisible}
-              heroes={props}
+              heroes={props.data}
             />
-            {isVisible && <DetailsView />}
+            {isVisible && <DetailsView hero={props.hero} />}
           </div>
         </div>
       </div>

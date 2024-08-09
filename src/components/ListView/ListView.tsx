@@ -12,10 +12,14 @@ import {
 import { Pagination } from './Pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import { remove, save } from '../Store/slice'
-import store from '../Store/store'
+//import store from '../Store/store'
 import { Flyelement } from '../FlyElement/Flyelement'
 // import { useGetHeroesQuery } from '../../Api'
 import { useRouter } from 'next/router'
+//import { GetServerSideProps } from 'next'
+//import { HeroesService } from '../../services/heroes.service'
+
+// eslint-disable-next-line react-refresh/only-export-components
 
 export function ListView(props: PropsStr) {
   const router = useRouter()
@@ -25,8 +29,8 @@ export function ListView(props: PropsStr) {
   // const { data, error, isLoading } = useGetHeroesQuery(
   //   `?page=${pageNum}&&search=${props.str}`
   // )
-  const data = props.heroes.results
-  console.log(data)
+  let data
+  if (props.heroes &&  'results' in props.heroes) { data = props.heroes.results }
   const charPerPage = 10
 
   // const [searchParams, setSearchParams] = useSearchParams()
@@ -36,7 +40,7 @@ export function ListView(props: PropsStr) {
 
   function handlePersonClick(index: string) {
     props.setIsVisible((prevState: boolean) => !prevState)
-    console.log(index)
+    router.push(`/?page=${pageNum}&details=${Number(index)}`)
     // searchParams.set('details', index)
     // setSearchParams(searchParams)
   }
@@ -65,7 +69,11 @@ export function ListView(props: PropsStr) {
   // if (data) {
   //   if (isApiResponse(data)) {
   //     const people = data.results
-  const total = props.heroes.count
+  let total = 0
+
+  if (props.heroes && 'results' in props.heroes) {
+    total = props.heroes.count
+  }
   return (
     <div className={styles['perspective']}>
       {data?.map((person: Person, index: number) => (
@@ -85,7 +93,6 @@ export function ListView(props: PropsStr) {
                   remove({ value: person, page: pageNum, checked: false })
                 )
               }
-              console.log(store.getState())
             }}
           />
           <div
@@ -93,8 +100,7 @@ export function ListView(props: PropsStr) {
             onClick={() =>
               handlePersonClick(
                 String(person.url.slice(-3, -1).replace(/\//g, ''))
-            
-            )
+              )
             }
           >
             {person.name}

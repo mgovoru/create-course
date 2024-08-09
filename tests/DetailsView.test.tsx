@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react'
-import { render } from '../../../tests/render'
+import { render } from './render'
 import { Provider } from 'react-redux'
-import store from '../Store/store'
-import { DetailsView } from './DetailsView'
+import store from '../src/components/Store/store'
+import { DetailsView } from '../src/components/DetailsView/DetailsView'
 it('renders the component DetailsView', () => {
   render(
     <Provider store={store}>

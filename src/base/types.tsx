@@ -94,7 +94,14 @@ export interface ApiResponse {
   previous: string | null
   results: Person[]
 }
-export type ApiResult =  ApiResponse | Person 
-export interface PersonData { 
-  heroes:Person[]
+export type ApiResult = ApiResponse | Person
+export interface PersonData {
+  heroes: Person[]
 }
+export interface propsHero {
+  hero?: Person
+}
+export interface propsCommon {
+  data: ApiResponse
+  hero?:Person
+ }

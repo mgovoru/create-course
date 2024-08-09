@@ -23,7 +23,6 @@ it('renders the component', () => {
         str={''}
         isVisible={false}
         setIsVisible={function (value: SetStateAction<boolean>): void {
-          console.log(value)
           throw new Error('Function not implemented.')
         }}
       />
