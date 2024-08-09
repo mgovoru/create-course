@@ -105,3 +105,6 @@ export interface propsCommon {
   data: ApiResponse
   hero?:Person
  }
+export interface ErrorPageProps {
+  statusCode?: number
+}

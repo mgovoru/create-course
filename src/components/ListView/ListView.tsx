@@ -19,7 +19,6 @@ import { useRouter } from 'next/router'
 //import { GetServerSideProps } from 'next'
 //import { HeroesService } from '../../services/heroes.service'
 
-// eslint-disable-next-line react-refresh/only-export-components
 
 export function ListView(props: PropsStr) {
   const router = useRouter()
