@@ -10,19 +10,20 @@ const IndexPage: NextPage<propsCommon> = ({ data, hero }) => {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { page = '1', details } = context.query
-
+  const { details, search } = context.query
+  const page = '1'
+  const str = (search as string) || ''
   if (details) {
-      const data = await HeroesService.getHeroes(page as string)
-      const hero = await HeroesService.getHero(details as string)
-      return {
-        props: {
-          data,
-          hero,
-        },
-      }
+    const data = await HeroesService.getHeroes(page, str)
+    const hero = await HeroesService.getHero(details as string)
+    return {
+      props: {
+        data,
+        hero,
+      },
+    }
   } else {
-    const data = await HeroesService.getHeroes(page as string)
+    const data = await HeroesService.getHeroes(page as string, str)
     return {
       props: {
         data,

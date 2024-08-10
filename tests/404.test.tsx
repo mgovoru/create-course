@@ -1,11 +1,11 @@
 import { screen } from '@testing-library/react'
-import { render } from '../../../tests/render'
+import { render } from '../tests/render'
 import { Provider } from 'react-redux'
-import store from '../Store/store'
-import { UnknownPage } from '../404'
+import UnknownPage  from './../src/pages/404'
 import React from 'react'
+import store from '../src/components/Store/store'
 
-it('renders the component 404', () => {
+test('renders the component 404', () => {
   render(
     <Provider store={store}>
       <UnknownPage />

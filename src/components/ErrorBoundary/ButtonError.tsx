@@ -1,3 +1,4 @@
+import React from 'react'
 import router from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -8,9 +9,9 @@ export function ButtonError() {
     setHasError(true)
   }
   useEffect(() => {
-          if (hasError) {
-            router.push('_error')
-          }
+    if (hasError) {
+      router.push('_error')
+    }
   }, [hasError])
 
   return (

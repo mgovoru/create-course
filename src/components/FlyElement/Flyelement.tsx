@@ -1,9 +1,9 @@
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeAll, toggleChecked } from '../Store/slice'
 import styles from '../../styles/Flyelement.module.scss'
 import { PropsFlyVisible, rootState } from '../../base/types'
 import Image from 'next/image'
- // import close from '../../../public/close.svg'
 import { saveAs } from 'file-saver'
 
 export function Flyelement(props: PropsFlyVisible) {

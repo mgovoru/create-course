@@ -1,12 +1,12 @@
-import { screen } from '@testing-library/react'
-import { render } from '../../../tests/render'
+import React from 'react'
+import { render, screen } from '@testing-library/react'
+import ErrorBoundary from 'next/dist/client/components/error-boundary'
 import { Provider } from 'react-redux'
-import store from '../Store/store'
-import { ErrorBoundary } from './ErrorBoundary'
-it('renders the component ErrorBoundary', () => {
+import store from '../src/components/Store/store'
+test('renders the component ErrorBoundary', () => {
   render(
     <Provider store={store}>
-      <ErrorBoundary children={undefined}></ErrorBoundary>
+      <ErrorBoundary error={undefined}></ErrorBoundary>
     </Provider>
   )
   const block = screen.findByTestId('error-title')

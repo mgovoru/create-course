@@ -6,8 +6,7 @@ import { Provider } from 'react-redux'
 import { ErrorBoundary } from '../components/ErrorBoundary/ErrorBoundary'
 import store from '../components/Store/store'
 import { Theme } from '../components/Theme/ThemeSwitch'
-
-const MyApp = ({ Component, pageProps }: AppProps) => {
+export const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <React.StrictMode>
       <Provider store={store}>

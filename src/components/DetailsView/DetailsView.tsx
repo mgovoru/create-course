@@ -1,24 +1,12 @@
+import React from 'react'
 import styles from '../../styles/DetailsView.module.scss'
-import { propsHero} from '../../base/types'
+import { propsHero } from '../../base/types'
 import { useRouter } from 'next/router'
 
 export function DetailsView(props: propsHero) {
   const router = useRouter()
   const { details } = router.query
 
-  // if (isLoading) {
-  //   return (
-  //     <div>
-  //       <div className={styles.loaderblock}></div>
-  //     </div>
-  //   )
-  // }
-
-  // if (error) {
-  //   return <div className="error-block">{error.toString()}</div>
-  // }
-  // if (data) {
-  //   if (isApiPerson(data)) {
   if (props.hero && 'name' in props.hero) {
     return (
       <div className={styles['details-hero']}>
@@ -35,5 +23,3 @@ export function DetailsView(props: propsHero) {
     )
   }
 }
-//   }
-// }

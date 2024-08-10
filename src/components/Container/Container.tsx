@@ -15,7 +15,6 @@ export function Container(props: propsCommon) {
     people: [],
     loading: true,
     error: null,
-    // strSearch: localStorage.getItem('search') || '',
     strSearch: '',
   })
   const [isVisible, setIsVisible] = useState(false)
