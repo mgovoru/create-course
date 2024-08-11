@@ -1,0 +1,60 @@
+.perspective {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.lists-hero {
+  font-size: calc(14px + 12 * ((100vw - 390px) / (1440 - 390)));
+  font-weight: 700;
+  color: darkorange;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-wrap: wrap;
+
+  @media (max-width: 472px) {
+    font-size: 18px;
+  }
+}
+
+.lists span {
+  display: block;
+  margin-left: 8px;
+}
+
+.loader-block {
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  background-image: url('../../public/images/load.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 10;
+}
+
+.error-block {
+  position: relative;
+  font-weight: 700;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 500px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.ul-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.input-checkbox {
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 4px;
+  position: relative;
+}

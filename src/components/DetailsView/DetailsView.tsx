@@ -1,44 +1,25 @@
-import { useLocation } from 'react-router-dom'
-import './DetailsView.scss'
-import { useGetHeroesQuery } from '../../Api'
-import { ApiResult, Person } from '../../base/types'
+import React from 'react'
+import styles from '../../styles/DetailsView.module.scss'
+import { propsHero } from '../../base/types'
+import { useRouter } from 'next/router'
 
-export function DetailsView() {
-  const location = useLocation()
-  const details = new URLSearchParams(location.search).get('details') || '1'
+export function DetailsView(props: propsHero) {
+  const router = useRouter()
+  const { details } = router.query
 
-  const { data, error, isLoading } = useGetHeroesQuery(`${details}`)
-
-  const isApiPerson = (response: ApiResult): response is Person => {
-    return 'name' in response
-  }
-
-  if (isLoading) {
+  if (props.hero && 'name' in props.hero) {
     return (
-      <div>
-        <div className="loader-block"></div>
+      <div className={styles['details-hero']}>
+        <div key={String(details)} className={styles['hero']}>
+          <div>{props.hero.name}</div>
+          <div>birth_year {props.hero.birth_year}</div>
+          <div>hair_color {props.hero.hair_color}</div>
+          <div>gender {props.hero.gender}</div>
+          <div>height {props.hero.height}</div>
+          <div>mass {props.hero.mass}</div>
+          <div>skin_color {props.hero.skin_color}</div>
+        </div>
       </div>
     )
-  }
-
-  if (error) {
-    return <div className="error-block">{error.toString()}</div>
-  }
-  if (data) {
-    if (isApiPerson(data)) {
-      return (
-        <div className="details-hero">
-          <div key={details} className="hero">
-            <div>{data.name}</div>
-            <div>birth_year {data.birth_year}</div>
-            <div>hair_color {data.hair_color}</div>
-            <div>gender {data.gender}</div>
-            <div>height {data.height}</div>
-            <div>mass {data.mass}</div>
-            <div>skin_color {data.skin_color}</div>
-          </div>
-        </div>
-      )
-    }
   }
 }

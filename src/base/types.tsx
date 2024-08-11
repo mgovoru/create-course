@@ -41,6 +41,7 @@ export interface PropsStr {
   str: string
   isVisible: boolean
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
+  heroes: ApiResponse
 }
 
 export interface PropsError {
@@ -93,4 +94,17 @@ export interface ApiResponse {
   previous: string | null
   results: Person[]
 }
-export type ApiResult =  ApiResponse | Person 
+export type ApiResult = ApiResponse | Person
+export interface PersonData {
+  heroes: Person[]
+}
+export interface propsHero {
+  hero?: Person
+}
+export interface propsCommon {
+  data: ApiResponse
+  hero?:Person
+ }
+export interface ErrorPageProps {
+  statusCode?: number
+}

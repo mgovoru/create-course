@@ -1,8 +1,9 @@
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeAll, toggleChecked } from '../Store/slice'
-import './Flyelement.scss'
+import styles from '../../styles/Flyelement.module.scss'
 import { PropsFlyVisible, rootState } from '../../base/types'
-import close from './../../assets/close.svg'
+import Image from 'next/image'
 import { saveAs } from 'file-saver'
 
 export function Flyelement(props: PropsFlyVisible) {
@@ -57,25 +58,35 @@ export function Flyelement(props: PropsFlyVisible) {
     saveAs(blob, `${checkedArray.length}_characters_starwars.csv`)
   }
   return (
-    <div className="fly-modal">
-      <div className="fly-content">
-        <button type="submit" className="button-svg" onClick={closeElement}>
-          <img src={close} alt="" className="close-svg" />
+    <div className={styles['fly-modal']}>
+      <div className={styles['fly-content']}>
+        <button
+          type="submit"
+          className={styles['button-svg']}
+          onClick={closeElement}
+        >
+          <Image
+            src="images/close.svg"
+            alt=""
+            className={styles['close-svg']}
+            width="30"
+            height="30"
+          />
         </button>
         {`${checkedArray.length} items are selected`}
         <button
           type="submit"
-          className="button button-unselect"
+          className={styles['button button-unselect']}
           onClick={unselectAll}
         >
           Unselect all
         </button>
         <button
           type="submit"
-          className="button button-download"
+          className={styles['button button-download']}
           onClick={downloadAll}
         >
-          <a className="link-download" href="#" onClick={downloadCSV}>
+          <a className={styles['link-download']} href="#" onClick={downloadCSV}>
             Download
           </a>
         </button>

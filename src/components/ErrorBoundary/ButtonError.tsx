@@ -1,20 +1,19 @@
-import { useState } from 'react'
+import React from 'react'
+import { useRouter } from 'next/router'
+//import { useEffect, useState } from 'react'
 
 export function ButtonError() {
-  const [state, setState] = useState({
-    throw: false,
-  })
-
+  // const [hasError, setHasError] = useState<boolean>(false)
+  const router = useRouter()
   function handleClick() {
-    setState((prevState) => ({
-      ...prevState,
-      throw: true,
-    }))
+    router.push('_error')
+    // setHasError(true)
   }
-
-  if (state.throw) {
-    throw new Error('Error!')
-  }
+  // useEffect(() => {
+  //   if (hasError) {
+  //     router.push('_error')
+  //   }
+  // }, [hasError])
 
   return (
     <button onClick={handleClick} className="button">
