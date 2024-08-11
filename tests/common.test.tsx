@@ -251,8 +251,47 @@ describe('test getServerSideProps', () => {
       },
     } as unknown as GetServerSidePropsContext
 
-    const mockHeroesData = { results: [{ name: 'Luke Skywalker' }] }
-    const mockHeroData = { name: 'Luke Skywalker' }
+    const mockHeroesData = {
+      count: 1,
+      next: null,
+      previous: null,
+      results: [{
+        name: 'Luke Skywalker',
+        height: '',
+        mass: '',
+        hair_color: '',
+        skin_color: '',
+        eye_color: '',
+        birth_year: '',
+        gender: '',
+        homeworld: '',
+        films: [],
+        species: [],
+        vehicles: [],
+        starships: [],
+        created: '',
+        edited: '',
+        url: '',
+      }]
+    }
+    const mockHeroData = {
+      name: 'Luke Skywalker',
+      height: '',
+      mass: '',
+      hair_color: '',
+      skin_color: '',
+      eye_color: '',
+      birth_year: '',
+      gender: '',
+      homeworld: '',
+      films: [],
+      species: [],
+      vehicles: [],
+      starships: [],
+      created: '',
+      edited: '',
+      url: '',
+    }
 
     mockHeroesService.getHeroes.mockResolvedValue(mockHeroesData)
     mockHeroesService.getHero.mockResolvedValue(mockHeroData)
@@ -268,31 +307,33 @@ describe('test getServerSideProps', () => {
 
     expect(mockHeroesService.getHeroes).toHaveBeenCalledWith('1', 'test')
     expect(mockHeroesService.getHero).toHaveBeenCalledWith('1')
+    render(<Page data={mockHeroesData} hero={mockHeroData} />)
+    const block = screen.findByTestId('Luke Skywalker')
+    expect(block).not.toBeNull()
   })
+    it('without details', async () => {
+      const context = {
+        query: {
+          page: '1',
+          search: 'test',
+        },
+      } as unknown as GetServerSidePropsContext
 
-  it('without details', async () => {
-    const context = {
-      query: {
-        page: '1',
-        search: 'test',
-      },
-    } as unknown as GetServerSidePropsContext
+      const mockHeroesData = { results: [{ name: 'Luke Skywalker' }] }
 
-    const mockHeroesData = { results: [{ name: 'Luke Skywalker' }] }
+      mockHeroesService.getHeroes.mockResolvedValue(mockHeroesData)
 
-    mockHeroesService.getHeroes.mockResolvedValue(mockHeroesData)
+      const result = await getServerSideProps(context)
 
-    const result = await getServerSideProps(context)
+      expect(result).toEqual({
+        props: {
+          data: mockHeroesData,
+        },
+      })
 
-    expect(result).toEqual({
-      props: {
-        data: mockHeroesData,
-      },
+      expect(mockHeroesService.getHeroes).toHaveBeenCalledWith('1', 'test')
     })
-
-    expect(mockHeroesService.getHeroes).toHaveBeenCalledWith('1', 'test')
   })
-})
 it('renders the component', () => {
   render(
     <Provider store={store}>
