@@ -11,6 +11,11 @@ export default defineConfig({
 			'.next',
 			'coverage',
 			'src/tests/**',
-			'src/tests/somefile.spec.ts']
+			'src/tests/somefile.spec.ts'],
+		coverage: {
+			all: true,
+			include: ['src/**/*.{ts,tsx}'],
+			exclude: ['node_modules', 'dist'],
+		},
 	}
 })

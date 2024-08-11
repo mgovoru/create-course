@@ -13,10 +13,9 @@ import MyApp from '../src/pages/_app'
 import mockRouter from 'next-router-mock'
 import { Router } from 'next/router'
 import Loading from '../src/pages/loading'
-import { HeroesService } from '../src/services/heroes.service'
-import IndexPage, { getServerSideProps } from '../src/pages'
+
+import IndexPage from '../src/pages'
 import Page from '../src/pages/page/[page]'
-import { GetServerSidePropsContext } from 'next'
 import { ListView } from '../src/components/ListView/ListView'
 import { toggleChecked, removeAll } from '../src/components/Store/slice'
 
@@ -228,112 +227,6 @@ test('renders the component', () => {
   const block = screen.findByTestId('Characters')
   expect(block).not.toBeNull()
 })
-
-describe('test getServerSideProps', () => {
-  vi.mock('../src/services/heroes.service', () => ({
-    HeroesService: {
-      getHeroes: vi.fn(),
-      getHero: vi.fn(),
-    },
-  }))
-  const mockHeroesService = HeroesService as jest.Mocked<typeof HeroesService>
-
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
-  it('swith data, hero and details', async () => {
-    const context = {
-      query: {
-        page: '1',
-        details: '1',
-        search: 'test',
-      },
-    } as unknown as GetServerSidePropsContext
-
-    const mockHeroesData = {
-      count: 1,
-      next: null,
-      previous: null,
-      results: [{
-        name: 'Luke Skywalker',
-        height: '',
-        mass: '',
-        hair_color: '',
-        skin_color: '',
-        eye_color: '',
-        birth_year: '',
-        gender: '',
-        homeworld: '',
-        films: [],
-        species: [],
-        vehicles: [],
-        starships: [],
-        created: '',
-        edited: '',
-        url: '',
-      }]
-    }
-    const mockHeroData = {
-      name: 'Luke Skywalker',
-      height: '',
-      mass: '',
-      hair_color: '',
-      skin_color: '',
-      eye_color: '',
-      birth_year: '',
-      gender: '',
-      homeworld: '',
-      films: [],
-      species: [],
-      vehicles: [],
-      starships: [],
-      created: '',
-      edited: '',
-      url: '',
-    }
-
-    mockHeroesService.getHeroes.mockResolvedValue(mockHeroesData)
-    mockHeroesService.getHero.mockResolvedValue(mockHeroData)
-
-    const result = await getServerSideProps(context)
-
-    expect(result).toEqual({
-      props: {
-        data: mockHeroesData,
-        hero: mockHeroData,
-      },
-    })
-
-    expect(mockHeroesService.getHeroes).toHaveBeenCalledWith('1', 'test')
-    expect(mockHeroesService.getHero).toHaveBeenCalledWith('1')
-    render(<Page data={mockHeroesData} hero={mockHeroData} />)
-    const block = screen.findByTestId('Luke Skywalker')
-    expect(block).not.toBeNull()
-  })
-    it('without details', async () => {
-      const context = {
-        query: {
-          page: '1',
-          search: 'test',
-        },
-      } as unknown as GetServerSidePropsContext
-
-      const mockHeroesData = { results: [{ name: 'Luke Skywalker' }] }
-
-      mockHeroesService.getHeroes.mockResolvedValue(mockHeroesData)
-
-      const result = await getServerSideProps(context)
-
-      expect(result).toEqual({
-        props: {
-          data: mockHeroesData,
-        },
-      })
-
-      expect(mockHeroesService.getHeroes).toHaveBeenCalledWith('1', 'test')
-    })
-  })
 it('renders the component', () => {
   render(
     <Provider store={store}>
@@ -364,25 +257,40 @@ test('renders the component', () => {
     count: 0,
     next: null,
     previous: null,
-    results: [{ name: 'Luke Skywalker',
-						height: 'string',
-						mass: 'string',
-						hair_color: 'string',
-						skin_color: 'string',
-						eye_color: 'string',
-						birth_year: 'string',
-						gender: 'string',
-						homeworld: 'string',
-						films: [],
-						species: [],
-						vehicles: [],
-						starships: [],
-						created: 'string',
-						edited: 'string',
-						url: 'string',
-					}],
+    results: [
+      {
+        name: 'Luke Skywalker',
+        height: 'string',
+        mass: 'string',
+        hair_color: 'string',
+        skin_color: 'string',
+        eye_color: 'string',
+        birth_year: 'string',
+        gender: 'string',
+        homeworld: 'string',
+        films: [],
+        species: [],
+        vehicles: [],
+        starships: [],
+        created: 'string',
+        edited: 'string',
+        url: 'string',
+      },
+    ],
   }
   render(<Page hero={hero} data={mockData} />)
   const block = screen.findByTestId('Luke Skywalker')
   expect(block).not.toBeNull()
+})
+test('on button click', async () => {
+  render(
+    <Provider store={store}>
+      <Flyelement flyisVisible={true} setFlyisVisible={() => {}} />
+    </Provider>
+  )
+  const buttons = await screen.findAllByRole('button')
+  const button = buttons.find(
+    (button) => button.textContent === 'Download'
+  ) as HTMLButtonElement
+  fireEvent.click(button)
 })

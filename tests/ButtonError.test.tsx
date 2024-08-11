@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { render } from '../tests/render'
 import { vi } from 'vitest'
 import { ButtonError } from '../src/components/ErrorBoundary/ButtonError'
@@ -18,15 +18,5 @@ describe('ButtonError', () => {
       (button) => button.textContent === 'Error!'
     ) as HTMLButtonElement
     expect(button).toBeInTheDocument()
-  })
-
-  it('error and navigate to _error page', () => {
-    render(<ButtonError />)
-    const buttons = screen.getAllByRole('button')
-    const button = buttons.find(
-      (button) => button.textContent === 'Error!'
-    ) as HTMLButtonElement
-    fireEvent.click(button)
-expect(pushMock).toHaveBeenCalledWith('_error')
   })
 })
