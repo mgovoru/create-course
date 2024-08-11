@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from '../styles/Error.module.scss'
 import { ErrorPageProps } from '../base/types'
 

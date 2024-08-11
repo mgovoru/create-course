@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SetStateAction } from 'react'
 import { fireEvent, screen } from '@testing-library/react'
 import { render } from './render'
 import { Provider } from 'react-redux'
@@ -17,6 +17,8 @@ import { HeroesService } from '../src/services/heroes.service'
 import IndexPage, { getServerSideProps } from '../src/pages'
 import Page from '../src/pages/page/[page]'
 import { GetServerSidePropsContext } from 'next'
+import { ListView } from '../src/components/ListView/ListView'
+import { toggleChecked, removeAll } from '../src/components/Store/slice'
 
 test('renders the component', () => {
   render(
@@ -78,7 +80,7 @@ test('change flyisVisible on button click', () => {
   expect(newState).toBe(true)
   expect(argument(newState)).toBe(false)
 })
-test('unselect all on button click', () => {
+test('unselect all on button click', async () => {
   const dispatchMock = vi.fn()
   store.dispatch = dispatchMock
   render(
@@ -86,6 +88,15 @@ test('unselect all on button click', () => {
       <Flyelement flyisVisible={true} setFlyisVisible={() => {}} />
     </Provider>
   )
+  const buttons = await screen.findAllByRole('button')
+  const button = buttons.find(
+    (button) => button.textContent === 'Unselect all'
+  ) as HTMLButtonElement
+  fireEvent.click(button)
+
+  expect(dispatchMock).toHaveBeenCalledTimes(2)
+  expect(dispatchMock.mock.calls[0][0]).toEqual(toggleChecked())
+  expect(dispatchMock.mock.calls[1][0]).toEqual(removeAll())
 })
 
 test('renders the component', () => {
@@ -166,18 +177,6 @@ test('renders the component', () => {
   const block = screen.findByTestId('loader-block ')
   expect(block).not.toBeNull()
 })
-// describe('getHeroes', () => {
-//   it('should fetch heroes', async () => {
-//     const mockData = {
-//       count: 0,
-//       next: null,
-//       previous: null,
-//       results: [],
-//     }
-//     const data = await HeroesService.getHeroes('1', 'test')
-//     expect(data).toEqual(mockData)
-//   })
-// })
 test('renders the component', () => {
   const mockData = {
     count: 0,
@@ -230,69 +229,119 @@ test('renders the component', () => {
   expect(block).not.toBeNull()
 })
 
-
 describe('test getServerSideProps', () => {
-    vi.mock('../src/services/heroes.service', () => ({
-      HeroesService: {
-        getHeroes: vi.fn(),
-        getHero: vi.fn(),
+  vi.mock('../src/services/heroes.service', () => ({
+    HeroesService: {
+      getHeroes: vi.fn(),
+      getHero: vi.fn(),
+    },
+  }))
+  const mockHeroesService = HeroesService as jest.Mocked<typeof HeroesService>
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it('swith data, hero and details', async () => {
+    const context = {
+      query: {
+        page: '1',
+        details: '1',
+        search: 'test',
       },
-    }))
-   const mockHeroesService = HeroesService as jest.Mocked<typeof HeroesService>
+    } as unknown as GetServerSidePropsContext
 
-   beforeEach(() => {
-     vi.clearAllMocks()
-   })
+    const mockHeroesData = { results: [{ name: 'Luke Skywalker' }] }
+    const mockHeroData = { name: 'Luke Skywalker' }
 
-   it('swith data, hero and details', async () => {
-     const context = {
-       query: {
-         page: '1',
-         details: '1',
-         search: 'test',
-       },
-     } as unknown as GetServerSidePropsContext
+    mockHeroesService.getHeroes.mockResolvedValue(mockHeroesData)
+    mockHeroesService.getHero.mockResolvedValue(mockHeroData)
 
-     const mockHeroesData = { results: [{ name: 'Luke Skywalker' }] }
-     const mockHeroData = { name: 'Luke Skywalker' }
+    const result = await getServerSideProps(context)
 
-     mockHeroesService.getHeroes.mockResolvedValue(mockHeroesData)
-     mockHeroesService.getHero.mockResolvedValue(mockHeroData)
+    expect(result).toEqual({
+      props: {
+        data: mockHeroesData,
+        hero: mockHeroData,
+      },
+    })
 
-     const result = await getServerSideProps(context)
+    expect(mockHeroesService.getHeroes).toHaveBeenCalledWith('1', 'test')
+    expect(mockHeroesService.getHero).toHaveBeenCalledWith('1')
+  })
 
-     expect(result).toEqual({
-       props: {
-         data: mockHeroesData,
-         hero: mockHeroData,
-       },
-     })
+  it('without details', async () => {
+    const context = {
+      query: {
+        page: '1',
+        search: 'test',
+      },
+    } as unknown as GetServerSidePropsContext
 
-     expect(mockHeroesService.getHeroes).toHaveBeenCalledWith('1', 'test')
-     expect(mockHeroesService.getHero).toHaveBeenCalledWith('1')
-   })
+    const mockHeroesData = { results: [{ name: 'Luke Skywalker' }] }
 
-   it('without details', async () => {
-     const context = {
-       query: {
-         page: '1',
-         search: 'test',
-       },
-     } as unknown as GetServerSidePropsContext
+    mockHeroesService.getHeroes.mockResolvedValue(mockHeroesData)
 
-     const mockHeroesData = { results: [{ name: 'Luke Skywalker' }] }
+    const result = await getServerSideProps(context)
 
-     mockHeroesService.getHeroes.mockResolvedValue(mockHeroesData)
+    expect(result).toEqual({
+      props: {
+        data: mockHeroesData,
+      },
+    })
 
-     const result = await getServerSideProps(context)
-
-     expect(result).toEqual({
-       props: {
-         data: mockHeroesData,
-       },
-     })
-
-     expect(mockHeroesService.getHeroes).toHaveBeenCalledWith('1', 'test')
-   })
- })
-   
+    expect(mockHeroesService.getHeroes).toHaveBeenCalledWith('1', 'test')
+  })
+})
+it('renders the component', () => {
+  render(
+    <Provider store={store}>
+      <ListView
+        str={''}
+        isVisible={false}
+        setIsVisible={function (value: SetStateAction<boolean>): void {
+          console.log(value)
+          throw new Error('Function not implemented.')
+        }}
+        heroes={{
+          count: 0,
+          next: null,
+          previous: null,
+          results: [],
+        }}
+      />
+    </Provider>
+  )
+  const block = screen.findByTestId('loader-block')
+  expect(block).not.toBeNull()
+  const blockItem = screen.findByTestId('perspective')
+  expect(blockItem).not.toBeNull()
+})
+test('renders the component', () => {
+  const hero = undefined
+  const mockData = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [{ name: 'Luke Skywalker',
+						height: 'string',
+						mass: 'string',
+						hair_color: 'string',
+						skin_color: 'string',
+						eye_color: 'string',
+						birth_year: 'string',
+						gender: 'string',
+						homeworld: 'string',
+						films: [],
+						species: [],
+						vehicles: [],
+						starships: [],
+						created: 'string',
+						edited: 'string',
+						url: 'string',
+					}],
+  }
+  render(<Page hero={hero} data={mockData} />)
+  const block = screen.findByTestId('Luke Skywalker')
+  expect(block).not.toBeNull()
+})
