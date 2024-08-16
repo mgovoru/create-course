@@ -1,0 +1,17 @@
+.forms {
+	display: flex;
+	flex-wrap: wrap;
+	gap:16px;
+}
+
+.ulitems {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	background-color: rgb(252, 252, 191);
+	padding: 16px;
+}

@@ -3,8 +3,8 @@ import formReducer from './slice'
 
 const store = configureStore({
   reducer: {
-    formReducer,
-  }
+    form: formReducer,
+  },
 });
 
 export default store;
