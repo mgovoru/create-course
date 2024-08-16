@@ -15,6 +15,7 @@ export interface FormData {
 export interface RootState {
   form: {
     forms: FormData[];
+    countries: string[];
   };
 }
 // export interface FormD {
@@ -22,4 +23,5 @@ export interface RootState {
 // }
 export interface FormD {
   forms: FormData[];
+  countries: string[];
 }

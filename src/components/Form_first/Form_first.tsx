@@ -1,13 +1,28 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './Form_first.scss';
-import { addForm } from '../../store/slice';
+import { addForm, setCountries } from '../../store/slice';
 //import { RootState } from '../../types';
 import { Link } from 'react-router-dom';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { RootState } from '../../types';
 
 export default function Form_Uncontroll() {
   const dispatch = useDispatch();
-  //const formData = useSelector((state: RootState) => state?.form?.formData);
+
+  const [inputValue, setInputValue] = useState('');
+  const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
+  const countries = useSelector((state: RootState) => state.form.countries);
+  console.log(countries);
+  useEffect(
+    () =>
+      setFilteredCountries(
+        countries?.filter((country) =>
+          country.toLowerCase().includes(inputValue.toLowerCase())
+        )
+      ),
+    [inputValue, countries]
+  );
+
   const nameForm = useRef<HTMLInputElement>(null);
   const emailForm = useRef<HTMLInputElement>(null);
   const ageForm = useRef<HTMLInputElement>(null);
@@ -15,14 +30,17 @@ export default function Form_Uncontroll() {
   const femaleForm = useRef<HTMLInputElement>(null);
   const acceptForm = useRef<HTMLInputElement>(null);
   const fileForm = useRef<HTMLInputElement>(null);
+  const passwordForm = useRef<HTMLInputElement>(null);
+  const passwordRForm = useRef<HTMLInputElement>(null);
+  const countryForm = useRef<HTMLInputElement>(null);
   function buttonSubmit() {
     dispatch(
       addForm({
         name: nameForm.current?.value || '',
         age: Number(ageForm.current?.value),
         email: emailForm.current?.value || '',
-        password: '',
-        passwordR: '',
+        password: passwordForm.current?.value || '',
+        passwordR: passwordRForm.current?.value || '',
         gender: maleForm.current?.value || femaleForm.current?.value || '',
         accept: acceptForm.current?.checked || false,
         upload: {
@@ -73,15 +91,14 @@ export default function Form_Uncontroll() {
           <label htmlFor="age">Age</label>
           <input
             type="text"
-            name="name"
-            id="name"
+            name="age"
+            id="age"
             ref={ageForm}
             placeholder="Enter age"
             className="input-data"
             required
           />
         </div>
-
         <div>
           <label htmlFor="email">Email </label>
           <input
@@ -94,7 +111,30 @@ export default function Form_Uncontroll() {
             required
           />
         </div>
-
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            ref={passwordForm}
+            placeholder="Enter password"
+            className="input-data"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="passwordR">Password</label>
+          <input
+            type="passwordR"
+            name="passwordR"
+            id="passwordR"
+            ref={passwordRForm}
+            placeholder="Enter password"
+            className="input-data"
+            required
+          />
+        </div>
         <div>
           <label htmlFor="gender">Gender</label>
           <input
@@ -114,12 +154,10 @@ export default function Form_Uncontroll() {
           />
           Female
         </div>
-
         <div>
           <label htmlFor="accept">accept Terms and Conditions agreement</label>
           <input type="checkbox" name="accept" id="accept" ref={acceptForm} />
         </div>
-
         <div>
           <label htmlFor="file">Upload file</label>
           <input
@@ -131,17 +169,28 @@ export default function Form_Uncontroll() {
             required
           />
         </div>
+        <div>
+          <label htmlFor="country">Country</label>
+          <input
+            type="text"
+            name="country"
+            id="country-input"
+            ref={countryForm}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          {filteredCountries?.length > 0 && (
+            <ul>
+              {filteredCountries.map((country) => (
+                <li key={country} onClick={() => setInputValue(country)}>
+                  {country}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
         <button type="submit">Submit</button>
         {/* 
-      <label htmlFor="lang">Country</label>
-      <input
-        type="checkbox"
-        name="lang"
-        id="english"
-        checked={subjects.english === true}
-        onChange={(e) => handleSubjectChange('english')}
-      />
-      English
       <input
         type="checkbox"
         name="lang"
