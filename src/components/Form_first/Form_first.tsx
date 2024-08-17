@@ -43,38 +43,61 @@ export default function Form_Uncontroll() {
   const errorAccept = useRef<HTMLDivElement>(null);
   const errorFile = useRef<HTMLDivElement>(null);
   const errorCountry = useRef<HTMLDivElement>(null);
-  function concatDate() {
-    return {
-      name: nameForm.current?.value || '',
-      age: Number(ageForm.current?.value) || 0,
-      email: emailForm.current?.value || '',
-      password: passwordForm.current?.value || '',
-      passwordR: passwordRForm.current?.value || '',
-      gender: maleForm.current?.checked
-        ? maleForm.current.value
-        : femaleForm.current?.checked
-          ? femaleForm.current?.value
-          : null,
-      accept: acceptForm.current?.checked,
-      upload: {
-        name:
-          fileForm.current && fileForm.current.files
-            ? fileForm.current.files[0]?.name || ''
-            : '',
-        size:
-          fileForm.current && fileForm.current.files
-            ? fileForm.current.files[0]?.size || 0
-            : 0,
-        type:
-          fileForm.current && fileForm.current.files
-            ? fileForm.current.files[0]?.type || ''
-            : '',
-      },
-      country: countryForm.current?.value || '',
-    };
+  let base64 = '';
+  async function concatDate() {
+    function fileToBase64(file: File) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+    }
+   if (fileForm.current?.files) {
+     try {
+       base64 = (await fileToBase64(
+         fileForm.current?.files[0]
+       )) as string;
+       console.log(base64);
+        return {
+          name: nameForm.current?.value || '',
+          age: Number(ageForm.current?.value) || 0,
+          email: emailForm.current?.value || '',
+          password: passwordForm.current?.value || '',
+          passwordR: passwordRForm.current?.value || '',
+          gender: maleForm.current?.checked
+            ? maleForm.current.value
+            : femaleForm.current?.checked
+              ? femaleForm.current?.value
+              : '',
+          accept: acceptForm.current?.checked || false,
+          upload: (base64 as string) || '',
+          //{
+          // name:
+          //   fileForm.current && fileForm.current.files
+          //     ? fileForm.current.files[0]?.name || ''
+          //     : '',
+          // size:
+          //   fileForm.current && fileForm.current.files
+          //     ? fileForm.current.files[0]?.size || 0
+          //     : 0,
+          // type:
+          //   fileForm.current && fileForm.current.files
+          //     ? fileForm.current.files[0]?.type || ''
+          //     : '',
+          // },
+          country: countryForm.current?.value || '',
+        };
+     } catch (error) {
+       console.error('Error converting file to base64:', error);
+     }
+   } else {
+     console.error('No files selected');
+   }
+   
   }
-  function buttonSubmit() {
-    const date = concatDate();
+  async function buttonSubmit() {
+    const date = await concatDate();
     validationSchema.validate(date, { abortEarly: false }).catch((err) => {
       console.log(err.errors);
       const errorN = err.errors.filter(
@@ -114,28 +137,25 @@ export default function Form_Uncontroll() {
       if (errorPR && errorPasswordR.current) {
         errorPasswordR.current.innerHTML = errorPR;
       }
-      const errorG = err.errors.filter(
-        (el: string) => el === errorList[15]
-      );
+      const errorG = err.errors.filter((el: string) => el === errorList[15]);
       if (errorG && errorGender.current) {
         errorGender.current.innerHTML = errorG;
       }
-      const errorC = err.errors.filter(
-        (el: string) => el === errorList[17]
-      );
+      const errorC = err.errors.filter((el: string) => el === errorList[17]);
       if (errorC && errorCountry.current) {
         errorCountry.current.innerHTML = errorC;
       }
-      const errorAC = err.errors.filter(
-        (el: string) => el === errorList[16]
-      );
+      const errorAC = err.errors.filter((el: string) => el === errorList[16]);
       if (errorAC && errorAccept.current) {
         errorAccept.current.innerHTML = errorAC;
       }
-      const errorF = err.errors.filter((el: string) => el === errorList[18] || el === errorList[19] || el === errorList[20]);
-       if (errorF && errorFile.current) {
-         errorFile.current.innerHTML = errorF;
-       }
+      const errorF = err.errors.filter(
+        (el: string) =>
+          el === errorList[18] || el === errorList[19] || el === errorList[20]
+      );
+      if (errorF && errorFile.current) {
+        errorFile.current.innerHTML = errorF;
+      }
     });
     dispatch(addForm(date));
   }
@@ -145,7 +165,7 @@ export default function Form_Uncontroll() {
         {' '}
         ссылка на главную
       </Link>
-      <Link rel="stylesheet" to="./form_2">
+      <Link rel="stylesheet" to="/form_2">
         {' '}
         ссылка на вторую форму
       </Link>
@@ -254,7 +274,7 @@ export default function Form_Uncontroll() {
           />
           <div className="error" ref={errorFile}></div>
         </div>
-        <div className="form-element">
+        <div className="form-element select-country">
           <label htmlFor="country">Country</label>
           <input
             type="text"

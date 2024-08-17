@@ -6,16 +6,17 @@ export interface FormData {
   passwordR: string;
   gender: string | null;
   accept: boolean | undefined;
-  upload: {
-    name: string;
-    size: number;
-    type: string;
-  };
+  upload: string,
+  // {
+  //   name: string;
+  //   size: number;
+  //   type: string;
+  // };
   country: string;
 }
 export interface RootState {
   form: {
-    forms: FormData[];
+    forms: FormValues[];
     countries: string[];
   };
 }
@@ -23,10 +24,21 @@ export interface RootState {
 //   formData: FormData[];
 // }
 export interface FormD {
-  forms: FormData[];
+  forms: FormValues[];
   countries: string[];
 }
 export interface fileS {
   name: string;
   size: number;
 }
+export type FormValues = {
+  accept?: boolean;
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+  passwordR: string;
+  gender: string;
+  upload: string;
+  country: string;
+};

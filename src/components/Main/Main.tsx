@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import { RootState } from '../../types';
-import { Link } from "react-router-dom";
-import './Main.scss'
+import { Link } from 'react-router-dom';
+import './Main.scss';
 
 export default function Main() {
-	const forms = useSelector((state: RootState) => state.form.forms);
-	return (
+  const forms = useSelector((state: RootState) => state.form.forms);
+  return (
     <>
       <Link rel="stylesheet" to="./form_1">
         ссылка на первую форму
@@ -18,7 +18,7 @@ export default function Main() {
           <ul key={index} className="ulitems">
             {Object.values(el)?.map((ell, index) => (
               <li key={index} className="ulitem">
-                {ell.name ? ell.name : ell.size ? ell.size : ell}
+                {ell}
               </li>
             ))}
           </ul>

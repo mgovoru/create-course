@@ -51,17 +51,27 @@ export const validationSchema = Yup.object().shape({
 
   accept: Yup.boolean().oneOf([true], errorList[16]),
 
-  upload: Yup.mixed<File>()
+  upload: Yup.mixed<string>()
     .required(errorList[18])
     .test('fileSize', errorList[19], (value) => {
-      if (!value) return false;
-      return value.size <= 2 * 1024 * 1024;
+      console.log(value, typeof value)
+      const getFileSizeFromBase64 = (base64String: string) => {
+        const stringLength =
+          base64String.length - 'data:image/jpeg;base64,'.length;
+        const sizeInBytes =
+          4 * Math.ceil(stringLength / 3) * 0.5624896334383812; 
+        return sizeInBytes;
+      };
+      const size = value ? getFileSizeFromBase64(value) : 0;
+      return size <= 2 * 1024 * 1024;
     })
-    .test('fileType', errorList[20], (value) => {
-      if (!value) return false;
-      return (
-        (value.type === 'image/png' || value.type === 'image/jpeg')
-      );
+    .test('fileType', errorList[20], (value: string) => {
+      const getTypeFromBase64 = (base64String: string) => {
+        const result = /^data:(.*);base64,/.exec(base64String);
+        return result ? result[1] : null;
+      };
+      const type = value ? getTypeFromBase64(value) : '';
+      return ['image/png', 'image/jpeg'].includes(type as string);
     }),
 
   country: Yup.string().required(errorList[17]),

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FormD, FormData } from '../types';
+import { FormD, FormValues } from '../types';
 
 const initialState: FormD = {
   forms: [],
@@ -17,7 +17,7 @@ const saveSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    addForm: (state, action: PayloadAction<FormData>) => {
+    addForm: (state, action: PayloadAction<FormValues>) => {
       state.forms.push(action.payload);
     },
     setCountries(state, action) {
