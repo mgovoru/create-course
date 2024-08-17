@@ -4,11 +4,12 @@ export interface FormData {
   email: string;
   password: string;
   passwordR: string;
-  gender: string;
-  accept: boolean;
+  gender: string | null;
+  accept: boolean | undefined;
   upload: {
     name: string;
     size: number;
+    type: string;
   };
   country: string;
 }
@@ -24,4 +25,8 @@ export interface RootState {
 export interface FormD {
   forms: FormData[];
   countries: string[];
+}
+export interface fileS {
+  name: string;
+  size: number;
 }

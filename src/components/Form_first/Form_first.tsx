@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './Form_first.scss';
-import { addForm, setCountries } from '../../store/slice';
-//import { RootState } from '../../types';
+import { addForm } from '../../store/slice';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { RootState } from '../../types';
+import { errorList, validationSchema } from '../../validation';
 
 export default function Form_Uncontroll() {
   const dispatch = useDispatch();
@@ -12,12 +12,13 @@ export default function Form_Uncontroll() {
   const [inputValue, setInputValue] = useState('');
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
   const countries = useSelector((state: RootState) => state.form.countries);
-  console.log(countries);
   useEffect(
     () =>
       setFilteredCountries(
-        countries?.filter((country) =>
-          country.toLowerCase().includes(inputValue.toLowerCase())
+        countries?.filter(
+          (country) =>
+            country.toLowerCase().includes(inputValue.toLowerCase()) &&
+            inputValue !== ''
         )
       ),
     [inputValue, countries]
@@ -33,29 +34,110 @@ export default function Form_Uncontroll() {
   const passwordForm = useRef<HTMLInputElement>(null);
   const passwordRForm = useRef<HTMLInputElement>(null);
   const countryForm = useRef<HTMLInputElement>(null);
+  const errorName = useRef<HTMLDivElement>(null);
+  const errorEmail = useRef<HTMLDivElement>(null);
+  const errorAge = useRef<HTMLDivElement>(null);
+  const errorPassword = useRef<HTMLDivElement>(null);
+  const errorPasswordR = useRef<HTMLDivElement>(null);
+  const errorGender = useRef<HTMLDivElement>(null);
+  const errorAccept = useRef<HTMLDivElement>(null);
+  const errorFile = useRef<HTMLDivElement>(null);
+  const errorCountry = useRef<HTMLDivElement>(null);
+  function concatDate() {
+    return {
+      name: nameForm.current?.value || '',
+      age: Number(ageForm.current?.value) || 0,
+      email: emailForm.current?.value || '',
+      password: passwordForm.current?.value || '',
+      passwordR: passwordRForm.current?.value || '',
+      gender: maleForm.current?.checked
+        ? maleForm.current.value
+        : femaleForm.current?.checked
+          ? femaleForm.current?.value
+          : null,
+      accept: acceptForm.current?.checked,
+      upload: {
+        name:
+          fileForm.current && fileForm.current.files
+            ? fileForm.current.files[0]?.name || ''
+            : '',
+        size:
+          fileForm.current && fileForm.current.files
+            ? fileForm.current.files[0]?.size || 0
+            : 0,
+        type:
+          fileForm.current && fileForm.current.files
+            ? fileForm.current.files[0]?.type || ''
+            : '',
+      },
+      country: countryForm.current?.value || '',
+    };
+  }
   function buttonSubmit() {
-    dispatch(
-      addForm({
-        name: nameForm.current?.value || '',
-        age: Number(ageForm.current?.value),
-        email: emailForm.current?.value || '',
-        password: passwordForm.current?.value || '',
-        passwordR: passwordRForm.current?.value || '',
-        gender: maleForm.current?.value || femaleForm.current?.value || '',
-        accept: acceptForm.current?.checked || false,
-        upload: {
-          name:
-            fileForm.current && fileForm.current.files
-              ? fileForm.current.files[0].name || ''
-              : '',
-          size:
-            fileForm.current && fileForm.current.files
-              ? fileForm.current.files[0].size || 0
-              : 0,
-        },
-        country: '',
-      })
-    );
+    const date = concatDate();
+    validationSchema.validate(date, { abortEarly: false }).catch((err) => {
+      console.log(err.errors);
+      const errorN = err.errors.filter(
+        (el: string) => el === errorList[0] || el === errorList[1]
+      );
+      if (errorN && errorName.current) {
+        errorName.current.innerHTML = errorN;
+      }
+      const errorA = err.errors.filter(
+        (el: string) =>
+          el === errorList[2] || el === errorList[3] || el === errorList[4]
+      );
+      if (errorA && errorAge.current) {
+        errorAge.current.innerHTML = errorA;
+      }
+      const errorE = err.errors.filter(
+        (el: string) => el === errorList[5] || el === errorList[6]
+      );
+      if (errorE && errorEmail.current) {
+        errorEmail.current.innerHTML = errorE;
+      }
+      const errorP = err.errors.filter(
+        (el: string) =>
+          el === errorList[7] ||
+          el === errorList[8] ||
+          el === errorList[9] ||
+          el === errorList[10] ||
+          el === errorList[11] ||
+          el === errorList[12]
+      );
+      if (errorP && errorPassword.current) {
+        errorPassword.current.innerHTML = errorP;
+      }
+      const errorPR = err.errors.filter(
+        (el: string) => el === errorList[13] || el === errorList[14]
+      );
+      if (errorPR && errorPasswordR.current) {
+        errorPasswordR.current.innerHTML = errorPR;
+      }
+      const errorG = err.errors.filter(
+        (el: string) => el === errorList[15]
+      );
+      if (errorG && errorGender.current) {
+        errorGender.current.innerHTML = errorG;
+      }
+      const errorC = err.errors.filter(
+        (el: string) => el === errorList[17]
+      );
+      if (errorC && errorCountry.current) {
+        errorCountry.current.innerHTML = errorC;
+      }
+      const errorAC = err.errors.filter(
+        (el: string) => el === errorList[16]
+      );
+      if (errorAC && errorAccept.current) {
+        errorAccept.current.innerHTML = errorAC;
+      }
+      const errorF = err.errors.filter((el: string) => el === errorList[18] || el === errorList[19] || el === errorList[20]);
+       if (errorF && errorFile.current) {
+         errorFile.current.innerHTML = errorF;
+       }
+    });
+    dispatch(addForm(date));
   }
   return (
     <>
@@ -70,12 +152,13 @@ export default function Form_Uncontroll() {
       <form
         action="#"
         method="get"
+        noValidate
         onSubmit={(event) => {
           event.preventDefault();
           buttonSubmit();
         }}
       >
-        <div>
+        <div className="form-element">
           <label htmlFor="name">Name</label>
           <input
             type="text"
@@ -84,10 +167,10 @@ export default function Form_Uncontroll() {
             ref={nameForm}
             placeholder="Enter name"
             className="input-data"
-            required
           />
+          <div className="error" ref={errorName}></div>
         </div>
-        <div>
+        <div className="form-element">
           <label htmlFor="age">Age</label>
           <input
             type="text"
@@ -96,10 +179,10 @@ export default function Form_Uncontroll() {
             ref={ageForm}
             placeholder="Enter age"
             className="input-data"
-            required
           />
+          <div className="error" ref={errorAge}></div>
         </div>
-        <div>
+        <div className="form-element">
           <label htmlFor="email">Email </label>
           <input
             type="email"
@@ -108,10 +191,10 @@ export default function Form_Uncontroll() {
             ref={emailForm}
             placeholder="Enter email"
             className="input-data"
-            required
           />
+          <div className="error" ref={errorEmail}></div>
         </div>
-        <div>
+        <div className="form-element">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -120,10 +203,10 @@ export default function Form_Uncontroll() {
             ref={passwordForm}
             placeholder="Enter password"
             className="input-data"
-            required
           />
+          <div className="error" ref={errorPassword}></div>
         </div>
-        <div>
+        <div className="form-element">
           <label htmlFor="passwordR">Password</label>
           <input
             type="passwordR"
@@ -132,10 +215,10 @@ export default function Form_Uncontroll() {
             ref={passwordRForm}
             placeholder="Enter password"
             className="input-data"
-            required
           />
+          <div className="error" ref={errorPasswordR}></div>
         </div>
-        <div>
+        <div className="form-element">
           <label htmlFor="gender">Gender</label>
           <input
             type="radio"
@@ -153,12 +236,14 @@ export default function Form_Uncontroll() {
             ref={femaleForm}
           />
           Female
+          <div className="error" ref={errorGender}></div>
         </div>
-        <div>
+        <div className="form-element">
           <label htmlFor="accept">accept Terms and Conditions agreement</label>
           <input type="checkbox" name="accept" id="accept" ref={acceptForm} />
+          <div className="error" ref={errorAccept}></div>
         </div>
-        <div>
+        <div className="form-element">
           <label htmlFor="file">Upload file</label>
           <input
             type="file"
@@ -166,65 +251,42 @@ export default function Form_Uncontroll() {
             id="file"
             ref={fileForm}
             placeholder="Enter Upload File"
-            required
           />
+          <div className="error" ref={errorFile}></div>
         </div>
-        <div>
+        <div className="form-element">
           <label htmlFor="country">Country</label>
           <input
             type="text"
+            autoComplete="off"
             name="country"
             id="country-input"
+            className="input-data"
             ref={countryForm}
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e) => {
+              e.preventDefault();
+              setInputValue(e.target.value);
+            }}
           />
           {filteredCountries?.length > 0 && (
-            <ul>
+            <ul className="ulcountries">
               {filteredCountries.map((country) => (
-                <li key={country} onClick={() => setInputValue(country)}>
+                <li
+                  key={country}
+                  onClick={() => setInputValue(country)}
+                  className="licountry"
+                >
                   {country}
                 </li>
               ))}
             </ul>
           )}
+          <div className="error" ref={errorCountry}></div>
         </div>
-        <button type="submit">Submit</button>
-        {/* 
-      <input
-        type="checkbox"
-        name="lang"
-        id="maths"
-        checked={subjects.maths === true}
-        onChange={(e) => handleSubjectChange('maths')}
-      />
-      Maths
-      <input
-        type="checkbox"
-        name="lang"
-        id="physics"
-        checked={subjects.physics === true}
-        onChange={(e) => handleSubjectChange('physics')}
-      />
-      Physics
-      <label htmlFor="file">Upload Resume*</label>
-      <input
-        type="file"
-        name="file"
-        id="file"
-        onChange={(e) => setResume(e.target.files[0])}
-        placeholder="Enter Upload File"
-        required
-      />
-      <label htmlFor="url">Enter URL*</label>
-      <input
-        type="url"
-        name="url"
-        id="url"
-        onChange={(e) => setUrl(e.target.value)}
-        placeholder="Enter url"
-        required
-      /> */}
+        <div className="form-element">
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </>
   );
