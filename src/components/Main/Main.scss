@@ -1,0 +1,35 @@
+.forms {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-items: flex-end;
+	gap: 16px;
+	width: 100%;
+}
+
+.ulitems {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	background-color: rgb(252, 252, 191);
+	padding: 16px;
+	min-width: 250px;
+}
+
+.lastform {
+	background-color: rgb(143, 253, 185);
+}
+
+.div-image {
+	width: 300px;
+	height: 300px;
+}
+
+.image-main {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}

@@ -1,0 +1,80 @@
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: flex-end;
+	justify-content: flex-start;
+}
+
+.input-data {
+	padding: 12px;
+	border: 1px solid black;
+	background-color: #f9f9f9;
+	font-size: 16px;
+	width: 300px;
+
+	&::placeholder {
+		color: #f8bd75;
+	}
+
+	&:focus {
+		outline: none;
+		border-color: #f8bd75;
+		background-color: #fff;
+	}
+
+	&:hover {
+		border-color: darken(#f8bd75, 10%);
+	}
+}
+
+label {
+	margin-right: 16px;
+}
+
+.select-country {
+	position: relative;
+	margin-bottom: 100px;
+}
+
+.ulcountries {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	width:300px;
+	transform: translateX(-50%);
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-end;
+	z-index: 100;
+}
+
+.licountry {
+	cursor: pointer;
+}
+
+.error {
+	color: red
+}
+
+.form-element {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+}
+
+.active {
+	color: green;
+}
+
+.error-button {
+	color: gray;
+}
