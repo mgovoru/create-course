@@ -21,10 +21,6 @@ form {
 		outline: none;
 		border-color: #f8bd75;
 		background-color: #fff;
-
-		// &::placeholder {
-		// 	color: transparent;
-		// }
 	}
 
 	&:hover {
@@ -48,6 +44,8 @@ label {
 	position: absolute;
 	top: 100%;
 	left: 50%;
+	width:300px;
+	transform: translateX(-50%);
 	background-color: white;
 	display: flex;
 	flex-direction: column;

@@ -27,11 +27,15 @@ export default function Main() {
             <ul key={index} className={diff}>
               {array?.map((ell, index) => (
                 <li key={index} className="ulitem">
-                  {typeof ell === 'string' && ell.includes('data:image')
-                    ? 'file upload'
-                    : typeof ell === 'boolean'
-                      ? 'accept'
-                      : ell}
+                  {typeof ell === 'string' && ell.includes('data:image') ? (
+                    <div className="div-image">
+                      <img src={ell} alt="image" className="image-main" />
+                    </div>
+                  ) : typeof ell === 'boolean' ? (
+                    'accept'
+                  ) : (
+                    ell
+                  )}
                 </li>
               ))}
             </ul>
