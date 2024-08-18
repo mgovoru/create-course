@@ -8,21 +8,36 @@ export default function Main() {
   return (
     <>
       <Link rel="stylesheet" to="./form_1">
-        ссылка на первую форму
+        First Form
       </Link>
       <Link rel="stylesheet" to="./form_2">
-        ссылка на вторую форму
+        Second Form
       </Link>
       <div className="forms">
-        {forms?.map((el, index) => (
-          <ul key={index} className="ulitems">
-            {Object.values(el)?.map((ell, index) => (
-              <li key={index} className="ulitem">
-                {ell}
-              </li>
-            ))}
-          </ul>
-        ))}
+        {forms?.map((el, index) => {
+          let diff = 'ulitems';
+          let array = Object.values(el);
+          if (index === forms.length - 1) {
+            diff = 'ulitems lastform';
+          }
+          console.log(Object.values(el));
+          if (Object.values(el)[2] === true) {
+            array = Object.values(el).reverse();
+          }
+          return (
+            <ul key={index} className={diff}>
+              {array?.map((ell, index) => (
+                <li key={index} className="ulitem">
+                  {typeof ell === 'string' && ell.includes('data:image')
+                    ? 'file upload'
+                    : typeof ell === 'boolean'
+                      ? 'accept'
+                      : ell}
+                </li>
+              ))}
+            </ul>
+          );
+        })}
       </div>
     </>
   );

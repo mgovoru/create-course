@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './Form_first.scss';
 import { addForm } from '../../store/slice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import { RootState } from '../../types';
+import { FormValues, RootState } from '../../types';
 import { errorList, validationSchema } from '../../validation';
 
 export default function Form_Uncontroll() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [inputValue, setInputValue] = useState('');
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
@@ -53,53 +54,28 @@ export default function Form_Uncontroll() {
         reader.onerror = (error) => reject(error);
       });
     }
-   if (fileForm.current?.files) {
-     try {
-       base64 = (await fileToBase64(
-         fileForm.current?.files[0]
-       )) as string;
-       console.log(base64);
-        return {
-          name: nameForm.current?.value || '',
-          age: Number(ageForm.current?.value) || 0,
-          email: emailForm.current?.value || '',
-          password: passwordForm.current?.value || '',
-          passwordR: passwordRForm.current?.value || '',
-          gender: maleForm.current?.checked
-            ? maleForm.current.value
-            : femaleForm.current?.checked
-              ? femaleForm.current?.value
-              : '',
-          accept: acceptForm.current?.checked || false,
-          upload: (base64 as string) || '',
-          //{
-          // name:
-          //   fileForm.current && fileForm.current.files
-          //     ? fileForm.current.files[0]?.name || ''
-          //     : '',
-          // size:
-          //   fileForm.current && fileForm.current.files
-          //     ? fileForm.current.files[0]?.size || 0
-          //     : 0,
-          // type:
-          //   fileForm.current && fileForm.current.files
-          //     ? fileForm.current.files[0]?.type || ''
-          //     : '',
-          // },
-          country: countryForm.current?.value || '',
-        };
-     } catch (error) {
-       console.error('Error converting file to base64:', error);
-     }
-   } else {
-     console.error('No files selected');
-   }
-   
+    if (fileForm.current?.files) {
+      base64 = (await fileToBase64(fileForm.current?.files[0])) as string;
+      return {
+        name: nameForm.current?.value || '',
+        age: Number(ageForm.current?.value) || 0,
+        email: emailForm.current?.value || '',
+        password: passwordForm.current?.value || '',
+        passwordR: passwordRForm.current?.value || '',
+        gender: maleForm.current?.checked
+          ? maleForm.current.value
+          : femaleForm.current?.checked
+            ? femaleForm.current?.value
+            : '',
+        accept: acceptForm.current?.checked || false,
+        upload: (base64 as string) || '',
+        country: countryForm.current?.value || '',
+      };
+    }
   }
   async function buttonSubmit() {
     const date = await concatDate();
     validationSchema.validate(date, { abortEarly: false }).catch((err) => {
-      console.log(err.errors);
       const errorN = err.errors.filter(
         (el: string) => el === errorList[0] || el === errorList[1]
       );
@@ -157,17 +133,16 @@ export default function Form_Uncontroll() {
         errorFile.current.innerHTML = errorF;
       }
     });
-    dispatch(addForm(date));
+    dispatch(addForm(date as FormValues));
+    navigate('/');
   }
   return (
     <>
       <Link rel="stylesheet" to="/">
-        {' '}
-        ссылка на главную
+        Main Page
       </Link>
       <Link rel="stylesheet" to="/form_2">
-        {' '}
-        ссылка на вторую форму
+        Second Page
       </Link>
       <form
         action="#"

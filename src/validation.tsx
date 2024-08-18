@@ -51,27 +51,34 @@ export const validationSchema = Yup.object().shape({
 
   accept: Yup.boolean().oneOf([true], errorList[16]),
 
-  upload: Yup.mixed<string>()
+  upload: Yup.mixed<FileList | string>()
     .required(errorList[18])
     .test('fileSize', errorList[19], (value) => {
-      console.log(value, typeof value)
-      const getFileSizeFromBase64 = (base64String: string) => {
-        const stringLength =
-          base64String.length - 'data:image/jpeg;base64,'.length;
-        const sizeInBytes =
-          4 * Math.ceil(stringLength / 3) * 0.5624896334383812; 
-        return sizeInBytes;
-      };
-      const size = value ? getFileSizeFromBase64(value) : 0;
-      return size <= 2 * 1024 * 1024;
+      if (typeof value === 'string') {
+        const getFileSizeFromBase64 = (base64String: string) => {
+          const stringLength =
+            base64String.length - 'data:image/jpeg;base64,'.length;
+          const sizeInBytes =
+            4 * Math.ceil(stringLength / 3) * 0.5624896334383812;
+          return sizeInBytes;
+        };
+        const size = value ? getFileSizeFromBase64(value) : 0;
+        return size <= 2 * 1024 * 1024;
+      } else return (value[0] as File).size <= 2 * 1024 * 1024;
     })
-    .test('fileType', errorList[20], (value: string) => {
-      const getTypeFromBase64 = (base64String: string) => {
-        const result = /^data:(.*);base64,/.exec(base64String);
-        return result ? result[1] : null;
-      };
-      const type = value ? getTypeFromBase64(value) : '';
-      return ['image/png', 'image/jpeg'].includes(type as string);
+    .test('fileType', errorList[20], (value) => {
+      if (typeof value === 'string') {
+        const getTypeFromBase64 = (base64String: string) => {
+          const result = /^data:(.*);base64,/.exec(base64String);
+          return result ? result[1] : null;
+        };
+        const type = value ? getTypeFromBase64(value) : '';
+        return ['image/png', 'image/jpeg'].includes(type as string);
+      } else
+        return (
+          (value[0] as File).type === 'image/png' ||
+          (value[0] as File).type === 'image/jpeg'
+        );
     }),
 
   country: Yup.string().required(errorList[17]),

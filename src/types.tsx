@@ -1,17 +1,21 @@
-export interface FormData {
+export interface FormDate {
+  // name: string;
+  // age: number;
+  // email: string;
+  // password: string;
+  // passwordR: string;
+  // gender: string;
+  // accept?: boolean;
+  // upload: File;
+  // country: string;
   name: string;
   age: number;
   email: string;
   password: string;
   passwordR: string;
-  gender: string | null;
-  accept: boolean | undefined;
-  upload: string,
-  // {
-  //   name: string;
-  //   size: number;
-  //   type: string;
-  // };
+  gender: string;
+  accept?: boolean | undefined;
+  upload: NonNullable<string | FileList | undefined>;
   country: string;
 }
 export interface RootState {

@@ -1,7 +1,6 @@
 .forms {
 	display: flex;
 	flex-wrap: wrap;
-	flex-direction: column;
 	justify-content: flex-end;
 	align-items: flex-end;
 	gap: 16px;
@@ -17,4 +16,9 @@
 	gap: 8px;
 	background-color: rgb(252, 252, 191);
 	padding: 16px;
+	min-width: 250px;
+}
+
+.lastform {
+	background-color: rgb(143, 253, 185);
 }

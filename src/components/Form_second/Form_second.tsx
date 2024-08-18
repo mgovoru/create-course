@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './../Form_first/Form_first.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { FormValues, RootState } from '../../types';
+import { FormDate, RootState } from '../../types';
 import { validationSchema } from '../../validation';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addForm } from '../../store/slice';
 
 export default function Form_Controll() {
+   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const {
@@ -16,13 +17,27 @@ export default function Form_Controll() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormValues>({
+  } = useForm<FormDate>({
     resolver: yupResolver(validationSchema),
+    mode: 'onChange',
   });
-  const onSubmitHandler = (data: FormValues) => {
-    console.log({ data });
-    dispatch(addForm(data));
+  let base64 = '';
+  const onSubmitHandler: SubmitHandler<FormDate> = async (data) => {
+    const fileToBase64 = (file: File) => {
+      return new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+      });
+    };
+
+    if (data.upload) {
+      base64 = await fileToBase64(data.upload[0] as File);
+    }
+    dispatch(addForm({ ...data, upload: base64 }));
     reset();
+    navigate('/');
   };
 
   const [inputValue, setInputValue] = useState('');
@@ -43,10 +58,10 @@ export default function Form_Controll() {
   return (
     <>
       <Link rel="stylesheet" to="/">
-        ссылка на главную
+        Main Page
       </Link>
       <Link rel="stylesheet" to="/form_1">
-        ссылка на первую форму
+        Second Page
       </Link>
       <form
         action="#"
