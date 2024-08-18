@@ -20,7 +20,6 @@ export default function Main() {
           if (index === forms.length - 1) {
             diff = 'ulitems lastform';
           }
-          console.log(Object.values(el));
           if (Object.values(el)[2] === true) {
             array = Object.values(el).reverse();
           }

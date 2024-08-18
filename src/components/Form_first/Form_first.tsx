@@ -44,6 +44,7 @@ export default function Form_Uncontroll() {
   const errorAccept = useRef<HTMLDivElement>(null);
   const errorFile = useRef<HTMLDivElement>(null);
   const errorCountry = useRef<HTMLDivElement>(null);
+  const errorButton = useRef<HTMLButtonElement>(null);
   let base64 = '';
   async function concatDate() {
     function fileToBase64(file: File) {
@@ -54,87 +55,92 @@ export default function Form_Uncontroll() {
         reader.onerror = (error) => reject(error);
       });
     }
-    if (fileForm.current?.files) {
+    if (fileForm.current?.files && fileForm.current?.files[0]) {
       base64 = (await fileToBase64(fileForm.current?.files[0])) as string;
-      return {
-        name: nameForm.current?.value || '',
-        age: Number(ageForm.current?.value) || 0,
-        email: emailForm.current?.value || '',
-        password: passwordForm.current?.value || '',
-        passwordR: passwordRForm.current?.value || '',
-        gender: maleForm.current?.checked
-          ? maleForm.current.value
-          : femaleForm.current?.checked
-            ? femaleForm.current?.value
-            : '',
-        accept: acceptForm.current?.checked || false,
-        upload: (base64 as string) || '',
-        country: countryForm.current?.value || '',
-      };
     }
+    return {
+      name: nameForm.current?.value || '',
+      age: Number(ageForm.current?.value) || 0,
+      email: emailForm.current?.value || '',
+      password: passwordForm.current?.value || '',
+      passwordR: passwordRForm.current?.value || '',
+      gender: maleForm.current?.checked
+        ? maleForm.current.value
+        : femaleForm.current?.checked
+          ? femaleForm.current?.value
+          : '',
+      accept: acceptForm.current?.checked || false,
+      upload: (base64 as string) || '',
+      country: countryForm.current?.value || '',
+    };
   }
   async function buttonSubmit() {
     const date = await concatDate();
-    validationSchema.validate(date, { abortEarly: false }).catch((err) => {
-      const errorN = err.errors.filter(
-        (el: string) => el === errorList[0] || el === errorList[1]
-      );
-      if (errorN && errorName.current) {
-        errorName.current.innerHTML = errorN;
-      }
-      const errorA = err.errors.filter(
-        (el: string) =>
-          el === errorList[2] || el === errorList[3] || el === errorList[4]
-      );
-      if (errorA && errorAge.current) {
-        errorAge.current.innerHTML = errorA;
-      }
-      const errorE = err.errors.filter(
-        (el: string) => el === errorList[5] || el === errorList[6]
-      );
-      if (errorE && errorEmail.current) {
-        errorEmail.current.innerHTML = errorE;
-      }
-      const errorP = err.errors.filter(
-        (el: string) =>
-          el === errorList[7] ||
-          el === errorList[8] ||
-          el === errorList[9] ||
-          el === errorList[10] ||
-          el === errorList[11] ||
-          el === errorList[12]
-      );
-      if (errorP && errorPassword.current) {
-        errorPassword.current.innerHTML = errorP;
-      }
-      const errorPR = err.errors.filter(
-        (el: string) => el === errorList[13] || el === errorList[14]
-      );
-      if (errorPR && errorPasswordR.current) {
-        errorPasswordR.current.innerHTML = errorPR;
-      }
-      const errorG = err.errors.filter((el: string) => el === errorList[15]);
-      if (errorG && errorGender.current) {
-        errorGender.current.innerHTML = errorG;
-      }
-      const errorC = err.errors.filter((el: string) => el === errorList[17]);
-      if (errorC && errorCountry.current) {
-        errorCountry.current.innerHTML = errorC;
-      }
-      const errorAC = err.errors.filter((el: string) => el === errorList[16]);
-      if (errorAC && errorAccept.current) {
-        errorAccept.current.innerHTML = errorAC;
-      }
-      const errorF = err.errors.filter(
-        (el: string) =>
-          el === errorList[18] || el === errorList[19] || el === errorList[20]
-      );
-      if (errorF && errorFile.current) {
-        errorFile.current.innerHTML = errorF;
-      }
-    });
-    dispatch(addForm(date as FormValues));
-    navigate('/');
+    validationSchema
+      .validate(date, { abortEarly: false })
+      .then(() => {
+        dispatch(addForm(date as FormValues));
+        (errorButton.current as HTMLButtonElement).className = 'active';
+        navigate('/');
+      })
+      .catch((err) => {
+        const errorN = err.errors.filter(
+          (el: string) => el === errorList[0] || el === errorList[1]
+        );
+        if (errorN && errorName.current) {
+          errorName.current.innerHTML = errorN;
+        }
+        const errorA = err.errors.filter(
+          (el: string) =>
+            el === errorList[2] || el === errorList[3] || el === errorList[4]
+        );
+        if (errorA && errorAge.current) {
+          errorAge.current.innerHTML = errorA;
+        }
+        const errorE = err.errors.filter(
+          (el: string) => el === errorList[5] || el === errorList[6]
+        );
+        if (errorE && errorEmail.current) {
+          errorEmail.current.innerHTML = errorE;
+        }
+        const errorP = err.errors.filter(
+          (el: string) =>
+            el === errorList[7] ||
+            el === errorList[8] ||
+            el === errorList[9] ||
+            el === errorList[10] ||
+            el === errorList[11] ||
+            el === errorList[12]
+        );
+        if (errorP && errorPassword.current) {
+          errorPassword.current.innerHTML = errorP;
+        }
+        const errorPR = err.errors.filter(
+          (el: string) => el === errorList[13] || el === errorList[14]
+        );
+        if (errorPR && errorPasswordR.current) {
+          errorPasswordR.current.innerHTML = errorPR;
+        }
+        const errorG = err.errors.filter((el: string) => el === errorList[15]);
+        if (errorG && errorGender.current) {
+          errorGender.current.innerHTML = errorG;
+        }
+        const errorC = err.errors.filter((el: string) => el === errorList[17]);
+        if (errorC && errorCountry.current) {
+          errorCountry.current.innerHTML = errorC;
+        }
+        const errorAC = err.errors.filter((el: string) => el === errorList[16]);
+        if (errorAC && errorAccept.current) {
+          errorAccept.current.innerHTML = errorAC;
+        }
+        const errorF = err.errors.filter(
+          (el: string) =>
+            el === errorList[18] || el === errorList[19] || el === errorList[20]
+        );
+        if (errorF && errorFile.current) {
+          errorFile.current.innerHTML = errorF;
+        }
+      });
   }
   return (
     <>
@@ -142,7 +148,7 @@ export default function Form_Uncontroll() {
         Main Page
       </Link>
       <Link rel="stylesheet" to="/form_2">
-        Second Page
+        Second Form
       </Link>
       <form
         action="#"
@@ -280,7 +286,9 @@ export default function Form_Uncontroll() {
           <div className="error" ref={errorCountry}></div>
         </div>
         <div className="form-element">
-          <button type="submit">Submit</button>
+          <button type="submit" ref={errorButton} className="error-button">
+            Submit
+          </button>
         </div>
       </form>
     </>

@@ -61,7 +61,7 @@ export default function Form_Controll() {
         Main Page
       </Link>
       <Link rel="stylesheet" to="/form_1">
-        Second Page
+        First Form
       </Link>
       <form
         action="#"
